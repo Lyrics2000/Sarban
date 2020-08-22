@@ -16,7 +16,7 @@ SECRET_KEY = '1=y5q)niwp$ve%1ywl)j&l!$rwtoo-twd&aunswp1z!v^&t3xq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sleepy-savannah-28536.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['sleepy-savannah-28536.herokuapp.com','127.0.0.1']
 
 
 # Application definition
