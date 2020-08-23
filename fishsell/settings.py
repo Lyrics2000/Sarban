@@ -16,7 +16,7 @@ SECRET_KEY = '1=y5q)niwp$ve%1ywl)j&l!$rwtoo-twd&aunswp1z!v^&t3xq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['myapp254h.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['sleepy-savannah-28536.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -30,8 +30,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'products',
-    
-    
 ]
 
 MIDDLEWARE = [
@@ -43,7 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'fishsell.urls'
@@ -51,7 +49,7 @@ ROOT_URLCONF = 'fishsell.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'products/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'product/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,11 +70,8 @@ WSGI_APPLICATION = 'fishsell.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd3ohdnsfdjn6eh' ,
-        'USER' : 'odomtrdeohuccw',
-        'HOST' : 'ec2-18-235-97-230.compute-1.amazonaws.com',
-        'PASSWORD' : '98ad110e195f5ef094b1e4b0a785ac46fa34586a5c8ec22cf48b7feb7cdc2d97',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -116,6 +111,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR,'static_project_file'),
+# ]
+# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn')
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media_cdn')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
