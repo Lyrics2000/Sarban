@@ -16,7 +16,7 @@ SECRET_KEY = '1=y5q)niwp$ve%1ywl)j&l!$rwtoo-twd&aunswp1z!v^&t3xq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['sleepy-savannah-28536.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['myapp254h.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -73,10 +73,10 @@ WSGI_APPLICATION = 'fishsell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db0e40oghro5ea' ,
-        'USER' : 'bnezixmerlgdsv',
-        'HOST' : 'ec2-107-20-104-234.compute-1.amazonaws.com',
-        'PASSWORD' : 'a629fa0212d23bf4cc9f63e7ae30e1c36596d1d85dcbd2441c1796f5bb670969',
+        'NAME': 'd3ohdnsfdjn6eh' ,
+        'USER' : 'odomtrdeohuccw',
+        'HOST' : 'ec2-18-235-97-230.compute-1.amazonaws.com',
+        'PASSWORD' : '98ad110e195f5ef094b1e4b0a785ac46fa34586a5c8ec22cf48b7feb7cdc2d97',
     }
 }
 
