@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Body Start -->
+<div class="wrapper">
+	<!-- Offers Start -->
+	<div class="main-banner-slider">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="owl-carousel offers-banner owl-theme">
+						<div class="item">
+							<div class="offer-item">								
+								<div class="offer-item-img">
+									<div class="gambo-overlay"></div>
+									<img src="{% static 'images\banners\offer-1.jpg' %}" alt="">
+								</div>
+								<div class="offer-text-dt">
+									<div class="offer-top-text-banner">
+										<p>6% Off</p>
+										<div class="top-text-1">Buy More & Save More</div>
+										<span>Fresh Vegetables</span>
+									</div>
+									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="offer-item">								
+								<div class="offer-item-img">
+									<div class="gambo-overlay"></div>
+									<img src="{% static 'images\banners\offer-2.jpg' %}" alt="">
+								</div>
+								<div class="offer-text-dt">
+									<div class="offer-top-text-banner">
+										<p>5% Off</p>
+										<div class="top-text-1">Buy More & Save More</div>
+										<span>Fresh Fruits</span>
+									</div>
+									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="offer-item">								
+								<div class="offer-item-img">
+									<div class="gambo-overlay"></div>
+									<img src="{% static 'images\banners\offer-3.jpg' %}" alt="">
+								</div>
+								<div class="offer-text-dt">
+									<div class="offer-top-text-banner">
+										<p>3% Off</p>
+										<div class="top-text-1">Hot Deals on New Items</div>
+										<span>Daily Essentials Eggs & Dairy</span>
+									</div>
+									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="offer-item">								
+								<div class="offer-item-img">	
+									<div class="gambo-overlay"></div>
+									<img src="{% static 'images\banners\offer-4.jpg' %}" alt="">
+								</div>
+								<div class="offer-text-dt">
+									<div class="offer-top-text-banner">
+										<p>2% Off</p>
+										<div class="top-text-1">Buy More & Save More</div>
+										<span>Beverages</span>
+									</div>
+									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="offer-item">								
+								<div class="offer-item-img">
+									<div class="gambo-overlay"></div>
+									<img src="{% static 'images\banners\offer-5.jpg'%}" alt="">
+								</div>
+								<div class="offer-text-dt">
+									<div class="offer-top-text-banner">
+										<p>3% Off</p>
+										<div class="top-text-1">Buy More & Save More</div>
+										<span>Nuts & Snacks</span>
+									</div>
+									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Offers End -->
+	<!-- Categories Start -->
+	<div class="section145">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="main-title-tt">
+						<div class="main-title-left">
+							<span>Shop By</span>
+							<h2>Categories</h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="owl-carousel cate-slider owl-theme">
+						{% if categories %}
+						{% for c in categories %}
+						<div class="item">
+							<a href="#" class="category-item">
+								<div class="cate-img">
+									<img src="{{c.category_image.url}}" alt="">
+								</div>
+								<h4>{{c.category_name}}</h4>
+							</a>
+						</div>
+						{% endfor %}
+						{% endif %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Categories End -->
+	<!-- Featured Products Start -->
+	<div class="section145">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="main-title-tt">
+						<div class="main-title-left">
+							<span>For You</span>
+							<h2>Top Featured Products</h2>
+						</div>
+						<a href="featuredproducts" class="see-more-btn">See All</a>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="owl-carousel featured-slider owl-theme">
+						{% if products %}
+						{% for p in products %}
+						{% if p.featured_product == 1 %}
+						<div class="item">
+							<div class="product-item">
+								<a href="{{p.get_absolute_url}}" class="product-img">
+									<img height="180" width="180" src="{{p.product_Image_Field.url}}" alt="">
+									<div class="product-absolute-options">
+										{% if p.product_discount_price %}
+										<span class="offer-badge-1">{{p.get_percentage_off }} % off</span>
+										{% endif %}
+										<span class="like-icon" title="wishlist"></span>
+									</div>
+								</a>
+								<div class="product-text-dt">
+									<p>Available<span>(In Stock)</span></p>
+									<h4>{{p.product_title}}</h4>
+									{% if p.product_discount_price %}
+									<div class="product-price">Ksh : {{p.product_discount_price}} <span> ksh : {{p.product_price}}</span></div>
+									{% else %}
+									<div class="product-price">Ksh : {{p.product_price}} </div>
+									{% endif %}
+
+									<div class="qty-cart">
+										<div class="quantity buttons_added">
+											<input type="button" value="-" class="minus minus-btn">
+											<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
+											<input type="button" value="+" class="plus plus-btn">
+										</div>
+										<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{% endif %}
+						{% endfor %}
+						{% endif %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Featured Products End -->
+	<!-- Best Values Offers Start -->
+	<div class="section145">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="main-title-tt">
+						<div class="main-title-left">
+							<span>Offers</span>
+							<h2>Best Values</h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a href="#" class="best-offer-item">
+						<img src="{% static 'images\best-offers\offer-1.jpg' %}" alt="">
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a href="#" class="best-offer-item">
+						<img src="{% static 'images\best-offers\offer-2.jpg' %}" alt="">
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a href="#" class="best-offer-item offr-none">
+						<img src="{% static 'images\best-offers\offer-3.jpg' %}" alt="">
+						<div class="cmtk_dt">
+							<div class="product_countdown-timer offer-counter-text" data-countdown="2021/01/06"></div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-12">
+					<a href="#" class="code-offer-item">
+						<img src="{% static 'images\best-offers\offer-4.jpg' %}" alt="">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Best Values Offers End -->
+	
+	<!-- New Products Start -->
+	<div class="section145">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="main-title-tt">
+						<div class="main-title-left">
+							<span>For You</span>
+							<h2>Added New Products</h2>
+						</div>
+						<a href="newproducts" class="see-more-btn">See All</a>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="owl-carousel featured-slider owl-theme">
+						{% if products %}
+						{% for p in products %}
+						
+						<div class="item">
+							<div class="product-item">
+								<a href="{{p.get_absolute_url}}" class="product-img">
+									<img height="180" width="180" src="{{p.product_Image_Field.url}}" alt="">
+									<div class="product-absolute-options">
+										{% if p.product_discount_price %}
+										<span class="offer-badge-1">{{p.get_percentage_off }} % off</span>
+										{% endif %}
+										<span class="like-icon" title="wishlist"></span>
+									</div>
+								</a>
+								<div class="product-text-dt">
+									<p>Available<span>(In Stock)</span></p>
+									<h4>{{p.product_title}}</h4>
+									{% if p.product_discount_price %}
+									<div class="product-price">Ksh : {{p.product_discount_price}} <span> ksh : {{p.product_price}}</span></div>
+									{% else %}
+									<div class="product-price">Ksh : {{p.product_price}} </div>
+									{% endif %}
+
+									<div class="qty-cart">
+										<div class="quantity buttons_added">
+											<input type="button" value="-" class="minus minus-btn">
+											<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
+											<input type="button" value="+" class="plus plus-btn">
+										</div>
+										<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+						{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- New Products End -->
+</div>
+<!-- Body End -->
+
+{% endblock %}

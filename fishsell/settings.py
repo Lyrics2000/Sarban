@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'product',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,7 @@ ROOT_URLCONF = 'fishsell.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'product/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'products/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,8 +68,11 @@ WSGI_APPLICATION = 'fishsell.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db0e40oghro5ea' ,
+        'USER' : 'bnezixmerlgdsv',
+        'HOST' : 'ec2-107-20-104-234.compute-1.amazonaws.com',
+        'PASSWORD' : 'a629fa0212d23bf4cc9f63e7ae30e1c36596d1d85dcbd2441c1796f5bb670969',
     }
 }
 

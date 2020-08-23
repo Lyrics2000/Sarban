@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include "head.html" %}
+
+    <body>
+        
+        {% block icons %}
+
+        {% endblock %}
+        {% block featured %}
+        {% endblock %}
+        {% include "categorystart.html" %}
+        {% include "searchmodelstart.html" %}
+        {% include "cart_offset_sidebar.html" %}
+        {% include "headerstart.html" %}
+        {% block content %}
+
+        {% endblock %}
+
+        {% include "footer.html" %}
+        {% include "jsfiles.html" %}
+        {% block extrajs %}
+        {% endblock %}
+
+    </body>
+
+
+
+
+
+
+
+
+</html>
