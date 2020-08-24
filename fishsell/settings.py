@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '1=y5q)niwp$ve%1ywl)j&l!$rwtoo-twd&aunswp1z!v^&t3xq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['sleepy-savannah-28536.herokuapp.com','127.0.0.1']
 
@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -110,11 +111,69 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static_project_file'),
-]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR,'static_project_file'),
+# ]
+# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media_cdn')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media_cdn')
+
+AWS_ACCESS_KEY_ID = 'AKIA3T7FB5INOG27IH5T'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'handlings254'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_project_file'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# AWS_ACCESS_KEY_ID = 'AKIA3T7FB5INOG27IH5T'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'handlings254'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_CUSTOM_DOMAIN = 'cdn.mydomain.com'
+# AWS_LOCATION = 'static'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static_project_file'),
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+# AWS_ACCESS_KEY_ID = 'AKIA3T7FB5INOG27IH5T'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'handlings254'
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_LOCATION = 'static'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static_project_file'),
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+
+# AKIA3T7FB5INN7TG4G5N
+
+
+# oIT6XG+kGykxxMdixSDPHEkByra6zYHI0grc7vG+
+
+# https://sibtc-static.s3.amazonaws.com/static/.
+
