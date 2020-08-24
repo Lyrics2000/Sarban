@@ -1,14 +1,10 @@
+from django.conf.urls import url
 
-from django.contrib import admin
-from django.urls import path,include
-from products.views import NewProduct
+from .views import (
+        SearchProductView
+        )
 
-app_name = 'products'
-
-
+app_name = 'search'
 urlpatterns = [
-   
-    path('', NewProduct.as_view(), name='newproducts'),
-    
-    
+    url('', SearchProductView.as_view(), name='query'),
 ]

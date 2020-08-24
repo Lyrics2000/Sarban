@@ -1,6 +1,7 @@
 from django.db import models
 import random
 import os
+from django.db.models import Q
 from datetime import datetime
 from django.utils.timezone import now
 from django.db.models.signals import pre_save
@@ -43,7 +44,30 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
+class ProductQuerySet(models.query.QuerySet):
+    def active(self):
+        return self.filter(Active=True)
+    def featured(self):
+        return self.filter(featured_product=True)
+    def search(self, query):
+        lookups = (Q(product_title__icontains=query) | 
+                  Q(product_full_description__icontains=query) |
+                  Q(product_price__icontains=query) 
+                  )
+        # tshirt, t-shirt, t shirt, red, green, blue,
+        return self.filter(lookups).distinct()
 
+class ProductManager(models.Manager):
+
+    def all(self):
+        return self.get_queryset().active()
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+    def featured(self): #Product.objects.featured() 
+        return self.get_queryset().featured()
+    def search(self, query):
+        return self.get_queryset().active().search(query)
+    
 
 class Products(models.Model):
     product_title = models.CharField(max_length=100)
@@ -53,11 +77,12 @@ class Products(models.Model):
     product_quantity_in_kgs = models.DecimalField(max_digits=5, decimal_places=2)
     product_price = models.DecimalField(max_digits=5, decimal_places=2)
     product_discount_price = models.DecimalField(max_digits=5, decimal_places=2,blank=True,null=True)
-    product_status = models.CharField(choices=CATEGORY_STATUS,max_length=2)
+    Active = models.BooleanField(default=True)
     product_Image_Field = models.ImageField(upload_to=upload_image_path,null=True,blank=False)
     featured_product = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=now, editable=False)
     slug = models.SlugField(blank=True,unique=True)
+    objects = ProductManager()
     def __str__(self):
         return self.product_title
     

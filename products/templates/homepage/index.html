@@ -113,6 +113,7 @@
 					<div class="owl-carousel cate-slider owl-theme">
 						{% if categories %}
 						{% for c in categories %}
+						
 						<div class="item">
 							<a href="#" class="category-item">
 								<div class="cate-img">
@@ -121,6 +122,7 @@
 								<h4>{{c.category_name}}</h4>
 							</a>
 						</div>
+						
 						{% endfor %}
 						{% endif %}
 						
@@ -148,6 +150,8 @@
 						{% if products %}
 						{% for p in products %}
 						{% if p.featured_product == 1 %}
+						{{forloo}}
+						
 						<div class="item">
 							<div class="product-item">
 								<a href="{{p.get_absolute_url}}" class="product-img">
@@ -179,6 +183,7 @@
 								</div>
 							</div>
 						</div>
+						
 
 						{% endif %}
 						{% endfor %}

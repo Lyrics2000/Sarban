@@ -42,10 +42,13 @@ class NewProduct(ListView):
 
 
 class FeaturedProducts(ListView):
-    model = Products
     template_name = 'featuredproducts/featured.html'
     context_object_name = 'fproducts'
     paginate_by = 12
+
+    def get_queryset(self,*args,**kwargs):
+        request = self.request
+        return Products.objects.all().featured()
 
 
 

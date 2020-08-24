@@ -51,7 +51,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR,'product/templates'),
-        os.path.join(BASE_DIR,'carts/templates')],
+        os.path.join(BASE_DIR,'carts/templates'),
+        os.path.join(BASE_DIR,'search/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
