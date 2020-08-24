@@ -78,8 +78,13 @@ class Products(models.Model):
         return reverse("products:product", kwargs={
             'slug': self.slug
         })
+
+    def moreq(self):
+        qs = MoreProductQuantirty.objects.all()
+        return qs
+  
     
-    
+
 
 
 def product_presave_reciver(sender, instance, *args,**kwargs):
@@ -95,6 +100,20 @@ def category_presave_reciver(sender, instance, *args,**kwargs):
 
 
 pre_save.connect(category_presave_reciver,sender = Category)
+
+class PostImage(models.Model):
+    product = models.ForeignKey(Products, default=None, on_delete=models.CASCADE)
+    more_images = models.ImageField(upload_to=upload_image_path,null=True,blank=True)
+
+    def __str__(self):
+        return self.product.product_title
+
+class MoreProductQuantirty(models.Model):
+    product_more = models.ForeignKey(Products, default=None, on_delete=models.CASCADE)
+    more_product_quantity = models.DecimalField(max_digits=5, decimal_places=2,blank=True,null=True)
+
+    def __str__(self):
+        return self.product_more.product_title
         
 
 

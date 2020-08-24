@@ -1,44 +1,53 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Category,Products
-from django.views.generic import DetailView
+from django.views.generic import DetailView,View,ListView
 
-# Create your views here.
 
-def index(request):
+class Index(View):
+    def get(self,request,*args,**kwargs):
+        allproducts = Products.objects.all()
+        allcategory = Category.objects.all()
+        print(allcategory)
+        context = {
+            'categories' : allcategory,
+            'products' : allproducts
+        }
     
-   
-    allproducts = Products.objects.all()
-    allcategory = Category.objects.all()
-    context = {
-        'categories' : allcategory,
-        'products' : allproducts
-    }
-   
-    return render(request,'homepage/index.html',context)
+        return render(request,'homepage/index.html',context)
+
+
+
+
 
 
 class ItemDetailView(DetailView):
     model = Products
     template_name = "homepage/product_single_view.html"
+    def get_context_data(self, **kwargs):
+        featuredpd = Products.objects.all()
+        context = super().get_context_data(**kwargs)
+        context['featuredpd'] = featuredpd
+        
+        return context
+    
 
 
 
 
-
-def newproducts(request):
-    newproducts = Products.objects.all()
-    context = {
-        'newproducts' : newproducts
-    }
-    return render(request,'newproducts/newproducts.html',context)
+class NewProduct(ListView):
+    model = Products
+    template_name = 'newproducts/newproducts.html'
+    context_object_name = 'newproducts'
+    paginate_by = 12
 
 
-def featuredproducts(request):
-    fproducts  = Products.objects.all()
-    context = {
-        'fproducts' : fproducts
-    }
-    return render(request,'featuredproducts/featured.html',context)
+class FeaturedProducts(ListView):
+    model = Products
+    template_name = 'featuredproducts/featured.html'
+    context_object_name = 'fproducts'
+    paginate_by = 12
+
+
 
 
 
