@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'fishsell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'Host' : 'ec2-107-20-104-234.compute-1.amazonaws.com',
+        'HOST' : 'ec2-107-20-104-234.compute-1.amazonaws.com',
         'NAME' :'db0e40oghro5ea',
         'USER' : 'bnezixmerlgdsv',
         'PORT'  : 5432,
