@@ -9,11 +9,12 @@ class Index(View):
         allproducts = Products.objects.all()
         allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
-        print(allcategory)
+        cart_items  = cart_obj.products.count()
         context = {
             'categories' : allcategory,
             'products' : allproducts,
             'cart' : cart_obj,
+            'cart_items' :  cart_items,
         }
     
         return render(request,'homepage/index.html',context)
@@ -30,10 +31,12 @@ class ItemDetailView(DetailView):
         featuredpd = Products.objects.all()
         allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        cart_items  = cart_obj.products.count()
         context = super().get_context_data(**kwargs)
         context['featuredpd'] = featuredpd
         context['cart'] = cart_obj
         context['categories'] = allcategory
+        context['cart_items'] = cart_items
         
         return context
     
@@ -49,9 +52,11 @@ class NewProduct(ListView):
     def get_context_data(self, **kwargs):
         allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        cart_items  = cart_obj.products.count()
         context = super().get_context_data(**kwargs)
         context['cart'] = cart_obj
         context['categories'] = allcategory
+        context['cart_items'] = cart_items
         return context
 
 
@@ -67,9 +72,11 @@ class FeaturedProducts(ListView):
     def get_context_data(self, **kwargs):
         allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        cart_items  = cart_obj.products.count()
         context = super().get_context_data(**kwargs)
         context['cart'] = cart_obj
         context['categories'] = allcategory
+        context['cart_items'] = cart_items
         return context
 
 

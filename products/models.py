@@ -6,14 +6,10 @@ from datetime import datetime
 from django.utils.timezone import now
 from django.db.models.signals import pre_save
 from django.shortcuts import reverse
-from .utils import unique_slug_generator,category_unique_slug_generator
+from fishsell.utils import unique_slug_generator,category_unique_slug_generator
 # Create your models here.
 
-CATEGORY_STATUS = (
-    ('Ac', 'Active'),
-    ('In', 'InActive'),
-    
-)
+
 
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)

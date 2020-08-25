@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1> complete Order </h1>
+<p>Cart Total : {{object.cart.total }}</p>
+<p>shipping_total Total : {{object.shipping_total }}</p>
+<p> Total : {{object.total }}</p>
+
+
+{% endblock %}

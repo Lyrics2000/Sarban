@@ -3,7 +3,7 @@
 <!-- Cart Sidebar Offset Start-->
 <div class="bs-canvas bs-canvas-left position-fixed bg-cart h-100">
     <div class="bs-canvas-header side-cart-header p-3 ">
-        <div class="d-inline-block  main-cart-title">My Cart <span>({{cart}} Items)</span></div>
+        <div class="d-inline-block  main-cart-title">My Cart <span>({{ cart_items }} Items)</span></div>
         <button type="button" class="bs-canvas-close close" aria-label="Close"><i class="uil uil-multiply"></i></button>
     </div> 
     <div class="bs-canvas-body">
@@ -11,7 +11,7 @@
             
         </div>
         <div class="side-cart-items">
-            {% if cart.products.all|length < 3 %}
+            {% if cart.products %}
             {% for p in cart.products.all %}
             
             <div class="cart-item">
@@ -23,26 +23,7 @@
                 </div>
                 <div class="cart-text">
                     <h4>{{p.product_title }}</h4>
-                    <div class="cart-radio">
-                        <ul class="kggrm-now">
-                            <li>
-                                <input type="radio" id="a1" name="cart1">
-                                <label for="a1">0.50</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="a2" name="cart1">
-                                <label for="a2">1kg</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="a3" name="cart1">
-                                <label for="a3">2kg</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="a4" name="cart1">
-                                <label for="a4">3kg</label>
-                            </li>
-                        </ul>
-                    </div>
+                 
                     <div class="qty-group">
                        
                         {% if p.product_discount_price %}
@@ -68,10 +49,12 @@
             <h2>Sub Total</h2>
             <span>Ksh : {{cart.subtotal}}</span>
         </div>
+        {% if cart.products %}
         <div class="checkout-cart">
             <a href="#" class="promo-code">Have a promocode?</a>
-            <a href="" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+            <a href='{% url "carts:checkout" %}' class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
         </div>
+        {% endif %}
     </div>
 </div>
 <!-- Cart Sidebar Offsetl End-->
