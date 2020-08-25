@@ -28,10 +28,12 @@ class ItemDetailView(DetailView):
     template_name = "homepage/product_single_view.html"
     def get_context_data(self, **kwargs):
         featuredpd = Products.objects.all()
+        allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
         context = super().get_context_data(**kwargs)
         context['featuredpd'] = featuredpd
         context['cart'] = cart_obj
+        context['categories'] = allcategory
         
         return context
     
@@ -44,6 +46,14 @@ class NewProduct(ListView):
     template_name = 'newproducts/newproducts.html'
     context_object_name = 'newproducts'
     paginate_by = 12
+    def get_context_data(self, **kwargs):
+        allcategory = Category.objects.all()
+        cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        context = super().get_context_data(**kwargs)
+        context['cart'] = cart_obj
+        context['categories'] = allcategory
+        return context
+
 
 
 class FeaturedProducts(ListView):
@@ -54,6 +64,13 @@ class FeaturedProducts(ListView):
     def get_queryset(self,*args,**kwargs):
         request = self.request
         return Products.objects.all().featured()
+    def get_context_data(self, **kwargs):
+        allcategory = Category.objects.all()
+        cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        context = super().get_context_data(**kwargs)
+        context['cart'] = cart_obj
+        context['categories'] = allcategory
+        return context
 
 
 
