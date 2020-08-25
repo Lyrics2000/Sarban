@@ -16,11 +16,13 @@
             
             <div class="cart-item">
                 <div class="cart-product-img">
-                    <img src="{{p.product_Image_Field}}" alt="">
-                    <div class="offer-badge">6% OFF</div>
+                    <img height="100" width="100" src="{{p.product_Image_Field.url}}" alt="">
+                    {% if p.product_discount_price %}
+                    <div class="offer-badge">{{p.get_percentage_off}}% OFF</div>
+                    {% endif %}
                 </div>
                 <div class="cart-text">
-                    <h4>Product Title Here</h4>
+                    <h4>{{p.product_title }}</h4>
                     <div class="cart-radio">
                         <ul class="kggrm-now">
                             <li>
@@ -42,12 +44,12 @@
                         </ul>
                     </div>
                     <div class="qty-group">
-                        <div class="quantity buttons_added">
-                            <input type="button" value="-" class="minus minus-btn">
-                            <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                            <input type="button" value="+" class="plus plus-btn">
-                        </div>
-                        <div class="cart-item-price">$10 <span>$15</span></div>
+                       
+                        {% if p.product_discount_price %}
+                            <div class="product-price">Ksh : {{p.product_discount_price}} <span> ksh : {{p.product_price}}</span></div>
+                        {% else %}
+                            <div class="product-price">Ksh : {{p.product_price}} </div>
+                        {% endif %}
                     </div>
                     
                     <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
