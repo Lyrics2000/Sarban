@@ -1,16 +1,19 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Category,Products
 from django.views.generic import DetailView,View,ListView
+from carts.models import Cart
 
 
 class Index(View):
     def get(self,request,*args,**kwargs):
         allproducts = Products.objects.all()
         allcategory = Category.objects.all()
+        cart_obj,new_obj = Cart.objects.new_or_get(self.request)
         print(allcategory)
         context = {
             'categories' : allcategory,
-            'products' : allproducts
+            'products' : allproducts,
+            'cart' : cart_obj,
         }
     
         return render(request,'homepage/index.html',context)
@@ -25,8 +28,10 @@ class ItemDetailView(DetailView):
     template_name = "homepage/product_single_view.html"
     def get_context_data(self, **kwargs):
         featuredpd = Products.objects.all()
+        cart_obj,new_obj = Cart.objects.new_or_get(self.request)
         context = super().get_context_data(**kwargs)
         context['featuredpd'] = featuredpd
+        context['cart'] = cart_obj
         
         return context
     
