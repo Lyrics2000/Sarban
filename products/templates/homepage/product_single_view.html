@@ -21,7 +21,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                         
-                            <li class="breadcrumb-item active" aria-current="page">{{object.product_title}}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{object.</li>
                         </ol>
                     </nav>
                 </div>
@@ -87,10 +87,11 @@
                                             
                                         </ul>
                                     </div>
+                                    <h3>Product Overview</h3>
                                     <p class="pp-descp">{{object.product_overview}}</p>
                                     <div class="product-group-dt">
                                         <ul>
-                                            {% if object.moreq %}
+                                            {% if object.product_discount_price %}
                                             <li><div class="main-price color-discount">Discount Price<span>Ksh(per kg) : {{object.product_discount_price}}</span></div></li>
                                             <li><div class="main-price mrp-price">MRP Price<span>Ksh(per kg) : {{object.product_price}}</span></div></li>
                                             {%else%}
