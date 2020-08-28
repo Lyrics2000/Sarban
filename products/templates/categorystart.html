@@ -18,7 +18,7 @@
 						{% if categories %}
 						{% for c in categories %}
 						<li>
-							<a href="#" class="single-cat-item">
+							<a href='{{c.get_absolute_url}}'  class="single-cat-item">
 								<div class="icon">
 									<img height="100" width="100"src="{{c.category_image.url}}" alt="">
 								</div>

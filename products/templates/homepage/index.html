@@ -11,22 +11,31 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="owl-carousel offers-banner owl-theme">
+						{% if products %}
+						{% for p in products %}
+						{% if p.product_discount_price %}
 						<div class="item">
 							<div class="offer-item">								
 								<div class="offer-item-img">
 									<div class="gambo-overlay"></div>
-									<img src="{% static 'images\banners\offer-1.jpg' %}" alt="">
+									<img height="260" width="500" src="{{p.product_Image_Field.url}}" alt="">
 								</div>
 								<div class="offer-text-dt">
+									
 									<div class="offer-top-text-banner">
-										<p>6% Off</p>
+										{% if p.product_discount_price %}
+										<p>{{p.get_percentage_off }} % Off</p>
+										{% endif %}
 										<div class="top-text-1">Buy More & Save More</div>
-										<span>Fresh Vegetables</span>
+										<span>Fresh Fish</span>
 									</div>
-									<a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+									<a href='{{p.get_absolute_url}}' class="Offer-shop-btn hover-btn">Shop Now</a>
 								</div>
 							</div>
 						</div>
+						{% endif %}
+						{% endfor %}
+						{% endif %}
 						
 					</div>
 				</div>
@@ -52,7 +61,7 @@
 						{% for c in categories %}
 						
 						<div class="item">
-							<a href="#" class="category-item">
+							<a href='{{c.get_absolute_url}}' class="category-item">
 								<div class="cate-img">
 									<img height="100" width="100" src="{{c.category_image.url}}" alt="">
 								</div>
@@ -87,7 +96,6 @@
 						{% if products %}
 						{% for p in products %}
 						{% if p.featured_product == 1 %}
-						{{forloo}}
 						
 						<div class="item">
 							<div class="product-item">

@@ -427,7 +427,14 @@
                                     {% else %}
                                     <div class="cart-item-price">Ksh(per kg):{{p.product_price}}</div>
                                     {% endif %}
-                                    <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+
+                                    <form method ='POST' action = '{% url "carts:cart_remove_checkout" %}' class="form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product_id" value="{{p.id}}"/>
+                                    
+                                        <button type="submit" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+                                   </form>
+                                    
                                 </div>      
                             </div>
                             {% endfor %}

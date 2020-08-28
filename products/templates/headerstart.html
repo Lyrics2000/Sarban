@@ -33,7 +33,7 @@
                     <li class="ui dropdown">
                         <a href="#" class="opts_account">
                             <img src="{% static 'images\avatar\img-5.jpg' %}" alt="">
-                            <span class="user__name">John Doe</span>
+                            <span class="user__name">{{request.user.username}}</span>
                             <i class="uil uil-angle-down"></i>
                         </a>
                         <div class="menu dropdown_account">
@@ -84,17 +84,17 @@
                                 <div class="ui icon top left dropdown nav__menu">
                                     <a class="nav-link" title="Pages">Pages <i class="uil uil-angle-down"></i></a>
                                     <div class="menu dropdown_page">
-                                     <a href="dashboard_overview.html" class="item channel_item page__links">Account</a>
+                                     
                                         <a href="about_us.html" class="item channel_item page__links">About Us</a>
-                                        <a href="shop_grid.html" class="item channel_item page__links">Shop Grid</a>
-                                        <a href="single_product_view.html" class="item channel_item page__links">Single Product View</a>
-                                        <a href="checkout.html" class="item channel_item page__links">Checkout</a>
-                                        <a href="request_product.html" class="item channel_item page__links">Product Request</a>										
-                                        <a href="order_placed.html" class="item channel_item page__links">Order Placed</a>										
-                                        <a href="bill.html" class="item channel_item page__links">Bill Slip</a>										
-                                        <a href="sign_in.html" class="item channel_item page__links">Sign In</a>
-                                        <a href="sign_up.html" class="item channel_item page__links">Sign Up</a>
-                                        <a href="forgot_password.html" class="item channel_item page__links">Forgot Password</a>
+                                        {% if request.user.is_authenticated %}
+                                        <a href="{% url 'cart:checkout' %}" class="item channel_item page__links">Checkout</a>
+                                        <a href="order_placed.html" class="item channel_item page__links">Order Placed</a>
+                                        <a href="forgot_password.html" class="item channel_item page__links">Forgot Password</a>	
+                                        {% else %}
+                                        <a href="{% url 'accounts:signin' %}" class="item channel_item page__links">Sign In</a>
+                                        <a href="{% url 'accounts:signup' %}" class="item channel_item page__links">Sign Up</a>
+                                        {% endif %}
+                                        <a href="request_product.html" class="item channel_item page__links">Product Request</a>									
                                         <a href="contact_us.html" class="item channel_item page__links">Contact Us</a>
                                     </div>
                                 </div>

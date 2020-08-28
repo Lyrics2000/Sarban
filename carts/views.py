@@ -5,8 +5,9 @@ from accounts.models import GuestEmail
 from addresses.forms import AddressForm
 from addresses.models import Address
 from orders.models import Order
-from products.models import Products
+from products.models import Products,Category
 from .models import Cart
+
 # Create your views here.
 
 
@@ -14,9 +15,12 @@ from .models import Cart
 def cart_home(request):
     cart_obj,new_obj = Cart.objects.new_or_get(request)
     cart_items = cart_obj.products.count()
+    allcategory = Category.objects.all()
+    
     context = {
         'cart' : cart_obj,
         'cart_items' : cart_items,
+        'categories' : allcategory,
     } 
     return render(request,'carts/home.html',context)
 
@@ -48,6 +52,31 @@ def cart_remove(request):
 
     return redirect("/")
 
+def cart_remove_wishlist(request):
+    product_id = request.POST.get("product_id")
+    if product_id is not None:
+        product_obj = Products.objects.get(id=product_id)
+        cart_obj,new_obj = Cart.objects.new_or_get(request)
+        if product_obj in cart_obj.products.all():
+            cart_obj.products.remove(product_obj)
+        else:
+            cart_obj.products.remove(product_obj)
+        request.session['cart_items'] = cart_obj.products.count()
+
+    return redirect("cart:cart_home")
+
+def cart_remove_checkout(request):
+    product_id = request.POST.get("product_id")
+    if product_id is not None:
+        product_obj = Products.objects.get(id=product_id)
+        cart_obj,new_obj = Cart.objects.new_or_get(request)
+        if product_obj in cart_obj.products.all():
+            cart_obj.products.remove(product_obj)
+        else:
+            cart_obj.products.remove(product_obj)
+        request.session['cart_items'] = cart_obj.products.count()
+
+    return redirect("cart:checkout")
 
 
 def checkout_home(request):
@@ -84,6 +113,7 @@ def checkout_home(request):
             del request.session['cart_id'] 
             return redirect("/cart/success")
     cart_items  = cart_obj.products.count()
+    allcategory = Category.objects.all()
  
     context = {
         "object": order_obj,
@@ -92,6 +122,8 @@ def checkout_home(request):
          "address_qs" : address_qs,
         "guest_form": guest_form,
         "cart_items" :  cart_items,
-        "cart_obj" : cart_obj
+        "cart_obj" : cart_obj,
+        "cart" : cart_obj,
+        'categories' : allcategory,
     }
     return render(request, "carts/checkout.html", context)

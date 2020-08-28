@@ -39,6 +39,22 @@ class ItemDetailView(DetailView):
         context['cart_items'] = cart_items
         
         return context
+
+class ItemDetailViewCategory(DetailView):
+    model = Category
+    template_name = "categoryproducts/category.html"
+    def get_context_data(self, **kwargs):
+        allproducts = Products.objects.all()
+        allcategory = Category.objects.all()
+        cart_obj,new_obj = Cart.objects.new_or_get(self.request)
+        cart_items  = cart_obj.products.count()
+        context = super().get_context_data(**kwargs)
+        context['fproducts'] = allproducts
+        context['cart'] = cart_obj
+        context['categories'] = allcategory
+        context['cart_items'] = cart_items
+        
+        return context
     
 
 
