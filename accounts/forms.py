@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 User = get_user_model()
 class GuestForm(forms.Form):
@@ -20,13 +21,39 @@ class LogiForm(forms.Form):
               "required" : ""
         }
     ))
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('UserName')
+        password = self.cleaned_data.get('Password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError('This user does not exist')
+            if not user.check_password(password):
+                raise forms.ValidationError('Incorrect password')
+            if not user.is_active:
+                raise forms.ValidationError('This user is not active')
+        return super(UserLoginForm, self).clean(*args, **kwargs)
+    
+
+ 
+
+
 
 
 class RegisterForm(forms.Form):
-    fullName = forms.CharField(
+    firstName = forms.CharField(
         widget=forms.TextInput(
             attrs={
-               "name" : "fullname" , "type":"text" , "placeholder":"Full name",  "class":"form-control lgn_input"
+               "name" : "fullname" , "type":"text" , "placeholder":"First Name",  "class":"form-control lgn_input"
+               , "required":" "
+            }
+        )
+    )
+    lastName = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+               "name" : "fullname" , "type":"text" , "placeholder":"Last Name",  "class":"form-control lgn_input"
                , "required":" "
             }
         )
@@ -46,33 +73,43 @@ class RegisterForm(forms.Form):
 
         }
     ))
-    phoneNumber  = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-               "name":"phone", "type":"text", "placeholder":"Phone Number", "class":"form-control lgn_input",
-                "required":""  
-            }
-        )
-    )
+    
     password = forms.CharField(
         widget=forms.PasswordInput(
-           attrs={ "type":"password" ,"placeholder":"New Password", "class":"form-control lgn_input",
+           attrs={ "type":"password" ,"placeholder":"Password", "class":"form-control lgn_input",
             "required":""}
         )
     )
     confirmpassword = forms.CharField(
         widget=forms.PasswordInput(
-          attrs={  "type":"password" ,"placeholder":"New Password", "class":"form-control lgn_input",
+          attrs={  "type":"password" ,"placeholder":"Confirm Password", "class":"form-control lgn_input",
             "required":""
           }
         )
     )
-    def clean_username(self):
+    # def clean_username(self):
+    #     username = self.cleaned_data.get("username")
+    #     qs = User.objects.filter(username = username)
+    #     if qs.exists:
+    #         raise forms.ValidationError("User Name exists")
+    #     return username
+    def clean_everything(self, *args, **kwargs):
         username = self.cleaned_data.get("username")
         qs = User.objects.filter(username = username)
+        
         if qs.exists:
             raise forms.ValidationError("User Name exists")
-        return username
+        else:
+            password = self.cleaned_data.get('password')
+            confirmpassword = self.cleaned_data.get('confirmpassword')
+            if password != confirmpassword:
+                raise forms.ValidationError("Password must match")
+            email = self.cleaned_data.get('email')
+            email_qs = User.objects.filter(email=email)
+            if email_qs.exists():
+                raise forms.ValidationError(
+                    "This email has already been registered")
+        return super(RegisterForm, self).clean(*args, **kwargs)
     # def clean(self):
     #     password = self.password
     #     password2 = self.confirmpassword

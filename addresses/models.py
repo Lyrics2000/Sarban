@@ -3,14 +3,14 @@ from billing.models import BillingProfile
 
 # Create your models here.
 ADDRESS_TYPES = (
-    ('billing', 'Billing'),
-    ('shipping' , 'Shipping')
+    ('delivery', 'Delivery'),
+   
 )
 class Address(models.Model):
     billing_profile = models.ForeignKey(BillingProfile,on_delete=models.CASCADE)
     addresstype = models.CharField(max_length=120,choices=ADDRESS_TYPES)
     address_line1 = models.CharField(max_length=120)
-    address_line2 = models.CharField(max_length=120,null=True,blank=True)
+    address_line2 = models.CharField(max_length=120, default = "Kangemi")
     city = models.CharField(max_length=120)
     name = models.CharField(max_length=120)
     email = models.CharField(max_length=120)

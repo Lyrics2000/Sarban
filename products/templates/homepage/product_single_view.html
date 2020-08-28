@@ -91,10 +91,10 @@
                                     <div class="product-group-dt">
                                         <ul>
                                             {% if object.moreq %}
-                                            <li><div class="main-price color-discount">Discount Price<span>Ksh {{object.product_discount_price}}</span></div></li>
-                                            <li><div class="main-price mrp-price">MRP Price<span>Ksh{{object.product_price}}</span></div></li>
+                                            <li><div class="main-price color-discount">Discount Price<span>Ksh(per kg) : {{object.product_discount_price}}</span></div></li>
+                                            <li><div class="main-price mrp-price">MRP Price<span>Ksh(per kg) : {{object.product_price}}</span></div></li>
                                             {%else%}
-                                            <li><div class="main-price color-discount">MRP Price <span>Ksh {{object.product_price}}</span></div></li>
+                                            <li><div class="main-price color-discount">MRP Price <span>Ksh(per kg) : {{object.product_price}}</span></div></li>
                                             {% endif %}
 
                                         </ul>
@@ -184,9 +184,9 @@
                                     <p>Available<span>(In Stock)</span></p>
                                     <h4>{{p.product_title}}</h4>
                                     {% if p.product_discount_price %}
-                                    <div class="product-price">Ksh : {{p.product_discount_price}}<span>Ksh : {{p.product_price}}</span></div>
+                                    <div class="product-price">Ksh(per kg) : {{p.product_discount_price}}<span>Ksh(per kg) : {{p.product_price}}</span></div>
                                     {% else %}
-                                    <div class="product-price">Ksh : {{p.product_price}}</div>
+                                    <div class="product-price">Ksh(per kg) : {{p.product_price}}</div>
                                     {% endif %}
                                     <div class="qty-cart">
                                         <div class="quantity buttons_added">
