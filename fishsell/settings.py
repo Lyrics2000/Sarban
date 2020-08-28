@@ -29,9 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
+    'accounts',
+    'addresses',
     'carts',
     'orders',
     'search',
+    'billing',
     'storages',
 ]
 
@@ -52,8 +55,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR,'product/templates'),
-        os.path.join(BASE_DIR,'carts/templates'),
-        os.path.join(BASE_DIR,'search/templates')],
+            os.path.join(BASE_DIR,'carts/templates'),
+            os.path.join(BASE_DIR,'search/templates'),
+         os.path.join(BASE_DIR,'accounts/templates'),
+         os.path.join(BASE_DIR,'addresses/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,6 +127,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Static files (CSS, JavaScript, Images)

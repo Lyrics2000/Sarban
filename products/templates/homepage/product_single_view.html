@@ -107,14 +107,14 @@
                                          
                                             </form>
                                         </li>
-                                        <!-- <li>
-                                        <form method ='POST' action = '{% url "carts:cart_update" %}' class="form">
+                                        <li>
+                                        <form method ='POST' action = '{% url "carts:cart_remove_product" %}' class="form">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="{{object.id}}" />
                                         
                                         <button type="submit" class="order-btn hover-btn">Remove from Cart</button>
-                                    </form>
-                                </li> -->
+                                       </form>
+                                       </li> 
                                         </ul>
                                     </div>
                                     <div class="pdp-details">
@@ -160,7 +160,7 @@
                             <span>For You</span>
                             <h2>Top Featured Products</h2>
                         </div>
-                        <a href="featuredproducts" class="see-more-btn">See All</a>
+                        <a href="{% url 'products:featured' %}" class="see-more-btn">See All</a>
                     </div>
                 </div>
                 <div class="col-md-12">

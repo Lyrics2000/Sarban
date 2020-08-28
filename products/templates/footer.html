@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <ul class="call-email-alt">
-                        <li><a href="#" class="callemail"><i class="uil uil-dialpad-alt"></i>1800-000-000</a></li>
-                        <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>info@gambosupermarket.com</a></li>
+                        <li><a href="#" class="callemail"><i class="uil uil-dialpad-alt"></i>254-727-263054</a></li>
+                        <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>info@twalafishstore.com</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -29,22 +29,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    {% if categories %}
+                    
                     <div class="second-row-item">
                         <h4>Categories</h4>
                         <ul>
-                            <li><a href="#">Fruits and Vegetables</a></li>
-                            <li><a href="#">Grocery & Staples</a></li>
-                            <li><a href="#">Dairy & Eggs</a></li>
-                            <li><a href="#">Beverages</a></li>
-                            <li><a href="#">Snacks</a></li>
-                            <li><a href="#">Home Care</a></li>
-                            <li><a href="#">Noodles & Sauces</a></li>
-                            <li><a href="#">Personal Care</a></li>
-                            <li><a href="#">Pet Care</a></li>
-                            <li><a href="#">Meat & Seafood</a></li>
-                            <li><a href="#">Electronics</a></li>
+                            {% for c in categories %}
+                            <li><a href="#">{{c.category_name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
+                    
+                    {% endif %}
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="second-row-item">
@@ -61,19 +57,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="second-row-item">
-                        <h4>Top Cities</h4>
-                        <ul>
-                            <li><a href="#">Gurugram</a></li>
-                            <li><a href="#">New Delhi</a></li>
-                            <li><a href="#">Bangaluru</a></li>
-                            <li><a href="#">Mumbai</a></li>
-                            <li><a href="#">Hyderabad</a></li>
-                            <li><a href="#">Kolkata</a></li>
-                            <li><a href="#">Ludhiana</a></li>
-                            <li><a href="#">Chandigrah</a></li>
-                        </ul>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="second-row-item-app">

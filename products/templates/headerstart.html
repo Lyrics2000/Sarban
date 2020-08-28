@@ -20,9 +20,7 @@
                     <li>
                         <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>254-727-263054</a>
                     </li>
-                    <li>
-                        <a href="offers.html" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
-                    </li>
+                  
                     <li>
                         <a href="faq.html" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
                     </li>
@@ -47,23 +45,22 @@
                                     </span>
                                 </a>
                             </div>	
-                            <a href="dashboard_overview.html" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a>								
+                            							
                             <a href="dashboard_my_orders.html" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
-                            <a href="dashboard_my_wishlist.html" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
-                            <a href="dashboard_my_wallet.html" class="item channel_item"><i class="uil uil-usd-circle icon__1"></i>My Wallet</a>
+                            <a href='{% url "carts:cart_home" %}' class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
+                        
                             <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
-                            <a href="offers.html" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
-                            <a href="faq.html" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
-                            <a href="sign_in.html" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
+                            
+                            <a href='{% url "accounts:logout" %}' class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
                         </div>
                     </li>
 
                     {% else %}
                     <li>
-                        <a href=""><span class="hidden-xs">Log In</span></a>
+                        <a href='{% url "accounts:signin" %}'><span class="hidden-xs">Log In</span></a>
                     </li>
                     <li>
-                        <a href=""><span class="hidden-xs">Sign Up</span></a>
+                        <a href='{% url "accounts:signup" %}'><span class="hidden-xs">Sign Up</span></a>
                     </li>
                     {% endif %}
                 </ul>
@@ -87,7 +84,7 @@
                                 <div class="ui icon top left dropdown nav__menu">
                                     <a class="nav-link" title="Pages">Pages <i class="uil uil-angle-down"></i></a>
                                     <div class="menu dropdown_page">
-                                        <a href="dashboard_overview.html" class="item channel_item page__links">Account</a>
+                                     <a href="dashboard_overview.html" class="item channel_item page__links">Account</a>
                                         <a href="about_us.html" class="item channel_item page__links">About Us</a>
                                         <a href="shop_grid.html" class="item channel_item page__links">Shop Grid</a>
                                         <a href="single_product_view.html" class="item channel_item page__links">Single Product View</a>
