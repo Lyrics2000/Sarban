@@ -7,6 +7,7 @@ from addresses.models import Address
 from orders.models import Order
 from products.models import Products,Category
 from .models import Cart
+from orders.models import Order
 
 # Create your views here.
 
@@ -84,34 +85,32 @@ def checkout_home(request):
     order_obj = None
     if cart_created or cart_obj.products.count() == 0:
         return redirect("cart:cart_home")  
-    
-    
-    
     guest_form = GuestForm()
     address_form = AddressForm()
     shipping_address_id = request.session.get("delivery_address_id" , None)
+    print("cart shipping address is " , shipping_address_id)
     billing_profile, billing_profile_created  = BillingProfile.objects.new_or_get(request)
     address_qs = None
     if billing_profile is not None:
         address_qs = Address.objects.filter(billing_profile=billing_profile)
-        # shipping_address_qs = address_qs.filter(addresstype = 'shipping')
-        # billing_address_qs = address_qs.filter(addresstype = 'billing')
         order_obj,order_obj_created = Order.objects.new_or_get(billing_profile,cart_obj)
         if shipping_address_id:
             order_obj.delivery_address = Address.objects.get(id=shipping_address_id)
-            del request.session["delivery_address_id"]
+            #del request.session["delivery_address_id"]
         
         if  shipping_address_id:
             order_obj.save()
+            #print("the shipping staff is " , Order.objects.shipping__totals())
 
-    if request.method == "POST":
-        #to do: do some check to see that the order is done
-        #update order object to being paid 
-        is_done = order_obj.check_done()
-        if is_done:
-            order_obj.mark_paid()
-            del request.session['cart_id'] 
-            return redirect("/cart/success")
+    # if request.method == "POST":
+    #     #to do: do some check to see that the order is done
+    #     #update order object to being paid 
+        
+    #     is_done = order_obj.check_done()
+    #     if is_done:
+    #         order_obj.mark_paid()
+    #         del request.session['cart_id'] 
+    #         return redirect("/cart/success")
     cart_items  = cart_obj.products.count()
     allcategory = Category.objects.all()
  

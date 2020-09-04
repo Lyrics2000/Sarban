@@ -3,6 +3,7 @@ from.forms import AddressForm
 from billing.models import BillingProfile
 from django.utils.http import is_safe_url
 
+
 # Create your views here.
 def checkout_address_create_view(request):
     form = AddressForm(request.POST or None)
@@ -13,7 +14,7 @@ def checkout_address_create_view(request):
     next_post = request.GET.get('next')
     redirect_path = next or next_post or None
     if form.is_valid:
-        print(request.POST)
+        
         instance = form.save(commit=False)
         billing_profile,billing_profile_created = BillingProfile.objects.new_or_get(request)
         if billing_profile is not None:
@@ -22,7 +23,7 @@ def checkout_address_create_view(request):
             instance.addresstype = "delivery"
             instance.save()
             request.session["delivery" + "_address_id"] = instance.id
-            print(billing_profile)
+            #print(billing_profile)
             
         else:
             redirect("cart:checkout")

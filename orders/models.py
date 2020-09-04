@@ -5,12 +5,13 @@ from addresses.models import Address
 from billing.models import BillingProfile
 from carts.models import Cart
 from fishsell.utils import unique_order_id_generator
+import requests
 
 ORDER_STATUS_CHOICES = (
     ('created' , 'Created'),
     ('paid' , 'Paid'),
     ('shipped' , 'Shipped'),
-    ('refunded' , 'Refunded')
+    
 )
 # Create your models here.
 class OrderManager(models.Manager):
@@ -23,6 +24,82 @@ class OrderManager(models.Manager):
             obj = self.model.objects.create(billing_profile=billing_profile, cart=cart_obj)
             created = True
         return obj,created
+    def shipping__totals(self):
+       
+        values = """
+  {
+    "command": "request",
+    "data": {
+      "api_key": "wkcgYXYcQIGUMpDbSRqB",
+      "api_username": "handlings254",
+      "vendor_type": 1,
+      "rider_phone": "0728561783",
+      "from": {
+        "from_name": "Green House",
+        "from_lat": -1.300577,
+        "from_long": 36.78183,
+        "from_description": ""
+      },
+      "to": {
+        "to_name": "KICC",
+        "to_lat": -1.28869,
+        "to_long": 36.823363,
+        "to_description": ""
+      },
+      "recepient": {
+          
+        "recepient_name": "Sender Name",
+        "recepient_phone": "0709779779",
+        "recepient_email": "sendyer@gmail.com",
+        "recepient_notes": "recepient specific Notes",
+        "recepient_notify": false
+      },
+      "sender": {
+        "sender_name": "Sendyer Name",
+        "sender_phone": "0709 779 779",
+        "sender_email": "sendyer@gmail.com",
+        "sender_notes": "Sender specific notes",
+        "sender_notify": false
+      },
+      "delivery_details": {
+        "pick_up_date": "2016-04-20 12:12:12",
+        "collect_payment": {
+          "status": false,
+          "pay_method": 0,
+          "amount": 10
+        },
+        "carrier_type": 2,
+        "return": false,
+        "note": " Sample note",
+        "note_status": true,
+        "request_type": "delivery",
+        "order_type": "ondemand_delivery",
+        "ecommerce_order": false,
+        "express": false,
+        "skew": 1,
+        "package_size": [
+          {
+            "weight": 20,
+            "height": 10,
+            "width": 200,
+            "length": 30,
+            "item_name": "laptop"
+          }
+        ]
+      }
+    },
+    "request_token_id": "request_token_id"
+  }
+"""
+
+        headers = {
+        'Content-Type': 'application/json'
+            }
+        request = requests.post('https://apitest.sendyit.com/v1/#request', data=values, headers=headers)
+        return request.json()
+    
+    
+
 
 class Order(models.Model):
     billing_profile = models.ForeignKey(BillingProfile,on_delete=models.CASCADE,null=True,blank=True)
@@ -30,14 +107,14 @@ class Order(models.Model):
     delivery_address = models.ForeignKey(Address,related_name="delivery_address",on_delete=models.CASCADE,null=True,blank=True)
     cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
     status = models.CharField(max_length=120,default='created',choices=ORDER_STATUS_CHOICES)
-    shipping_total = models.DecimalField(default=500.99,max_digits=100,decimal_places=2)
+    shipping_total = models.DecimalField(default=00.00,max_digits=100,decimal_places=2)
     total = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.order_id
     objects = OrderManager()
-    
+   
     def update_total(self):
         cart_total = self.cart.total
         shipping_total = self.shipping_total

@@ -12,6 +12,7 @@ urlpatterns = [
     path('checkout/address/create',checkout_address_create_view, name='checkout_address_create_view'),
     path('search/',include('search.urls', namespace='search')),
      path('carts/',include('carts.urls', namespace='cart')),
+      path('payment/',include('mpesa.urls', namespace='mpesa')),
      path('account/' ,include('accounts.urls' , namespace = 'account'))
 ]
 
