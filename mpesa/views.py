@@ -68,7 +68,7 @@ def register_urls(request):
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
     options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
-               "ResponseType": "Completed",
+               "ResponseType": "Cancelled",
                "ConfirmationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/confirmation",
                "ValidationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/validation"}
     response = requests.post(api_url, json=options, headers=headers)
