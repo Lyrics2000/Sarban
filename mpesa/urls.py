@@ -8,7 +8,8 @@ confirmation,
 validation,
 call_back,
 cash_on_delivery,
-cash_on_delivery_success
+cash_on_delivery_success,
+simulate_mpesa
 )
 
 app_name = 'mpesa'
@@ -25,6 +26,9 @@ urlpatterns = [
     path('c2b/callback', call_back, name="call_back"),
     path('cash_on_delivery',cash_on_delivery, name="cash_on_delivery"),
     path('cash_on_delivery/success',cash_on_delivery_success, name="cash_on_delivery_success"),
+
+    #simulate mpesa
+    path('c2b/mpesa', simulate_mpesa, name="simulate_mpesa"),
     
     
 ]

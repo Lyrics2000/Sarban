@@ -56,7 +56,8 @@ def lipa_na_mpesa_online(request):
         "TransactionDesc": "Testing stk push"
     }
     response = requests.post(api_url, json=request, headers=headers)
-    return HttpResponse('success')
+    mpesa_respone = json.loads(response.text)
+    return HttpResponse(mpesa_respone)
 
 
 
@@ -185,4 +186,18 @@ def cash_on_delivery_success(request):
   
     
     return render(request, "success.html", context)
+
+
+def simulate_mpesa(request):
+    access_token = MpesaAccessToken.validated_mpesa_access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    request = { "ShortCode":LipanaMpesaPpassword.Business_short_code,
+        "CommandID":"CustomerPayBillOnline",
+        "Amount":1,
+        "Msisdn":254704157038,
+        "BillRefNumber":" " }
+  
+    response = requests.post(api_url, json = request, headers=headers)
+    return HttpResponse(response.text)
 

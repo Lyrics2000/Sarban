@@ -137,6 +137,8 @@ LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+# #development
 # STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR,'static_project_file'),
@@ -146,6 +148,8 @@ LOGOUT_REDIRECT_URL = '/'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media_cdn')
 
+
+#Email backends
 EMIAL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'ambetsaachongo@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
