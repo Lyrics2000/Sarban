@@ -67,7 +67,7 @@ def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
-    options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
+    options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
                "ResponseType": "Completed",
                "ConfirmationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/confirmation",
                "ValidationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/validation"}
@@ -86,6 +86,7 @@ def validation(request):
 
     context = {
         "ResultCode": 0,
+        "Amount" :  2,
         "ResultDesc": "Accepted"
     }
     return JsonResponse(dict(context))
@@ -95,7 +96,6 @@ def validation(request):
 def confirmation(request):
     mpesa_body =request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
-
     payment = MpesaPayment(
         first_name=mpesa_payment['FirstName'],
         last_name=mpesa_payment['LastName'],
@@ -192,11 +192,12 @@ def simulate_mpesa(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate"
     headers = {"Authorization": "Bearer %s" % access_token}
-    request = { "ShortCode":LipanaMpesaPpassword.Business_short_code,
+    request = { "ShortCode":LipanaMpesaPpassword.Test_c2b_shortcode,
         "CommandID":"CustomerPayBillOnline",
         "Amount":1,
         "Msisdn":254704157038,
-        "BillRefNumber":" " }
+        "BillRefNumber":" "
+          }
   
     response = requests.post(api_url, json = request, headers=headers)
     return HttpResponse(response.text)

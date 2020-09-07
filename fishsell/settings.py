@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'fishsell.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
+#production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -92,6 +92,7 @@ DATABASES = {
     }
 }
 
+# # development
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
