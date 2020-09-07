@@ -1,8 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from carts.models import Cart
 from billing.models import BillingProfile
-from addresses.models import Address
+from addresses.models import Address,DeliveryTime
 from orders.models import Order
+from products.models import Category
+
+#Email imports
+from django.core.mail import send_mail,EmailMultiAlternatives
+from django.template.loader import get_template
+from django.conf import settings
+
+#####################
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 import requests
@@ -13,44 +21,18 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import MpesaPayment
 
 def Index(request):
-    cart_obj, cart_created = Cart.objects.new_or_get(request)
-    order_obj = None
-    if cart_created or cart_obj.products.count() == 0:
-        return redirect("cart:cart_home")  
-    shipping_address_id = request.session.get("delivery_address_id" , None)
-    print("The address found is" , shipping_address_id)
-    billing_profile, billing_profile_created  = BillingProfile.objects.new_or_get(request)
-    address_qs = None
-    if billing_profile is not None:
-        order_obj,order_obj_created = Order.objects.new_or_get(billing_profile,cart_obj)
-        if shipping_address_id:
-            order_obj.delivery_address = Address.objects.get(id=shipping_address_id)
-
-            del request.session["delivery_address_id"]
-        
-        if  shipping_address_id:
-            order_obj.save()
-            #print("the shipping staff is " , Order.objects.shipping__totals())
-
-    # if request.method == "POST":
-    #     #to do: do some check to see that the order is done
-    #     #update order object to being paid 
-        
-    #     is_done = order_obj.check_done()
-    #     if is_done:
-    #         order_obj.mark_paid()
-    #         del request.session['cart_id'] 
-    #         return redirect("/cart/success")
-    cart_items  = cart_obj.products.count()
-   
- 
+    order_id = request.session.get('object' ,  None)
+    cart_id = request.session.get('cart' , None)
+    cart_items = request.session.get('cart_items' , None)
+    allcategory = Category.objects.all()
+    order_obj = Order.objects.get(order_id__iexact =order_id)
+    cart_obj = Cart.objects.get(id__iexact = cart_id)
     context = {
         "object": order_obj,
-        "billing_profile": billing_profile,
-         "address_qs" : address_qs,
         "cart_items" :  cart_items,
         "cart_obj" : cart_obj,
         "cart" : cart_obj,
+        "delivery_method" : "continue with Mpesa"
        
     }
     return render(request, "mpesa.html", context)
@@ -84,10 +66,10 @@ def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
-    options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
+    options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
                "ResponseType": "Completed",
-               "ConfirmationURL": "http://127.0.0.1:8000/api/v1/c2b/confirmation",
-               "ValidationURL": "http://127.0.0.1:8000/api/v1/c2b/validation"}
+               "ConfirmationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/confirmation",
+               "ValidationURL": "http://sleepy-savannah-28536.herokuapp.com/api/v1/c2b/validation"}
     response = requests.post(api_url, json=options, headers=headers)
 
     return HttpResponse(response.text)
@@ -133,3 +115,74 @@ def confirmation(request):
     }
 
     return JsonResponse(dict(context))
+
+
+
+def cash_on_delivery(request):
+    order_id = request.session.get('object' ,  None)
+    cart_id = request.session.get('cart' , None)
+    cart_items = request.session.get('cart_items' , None)
+    allcategory = Category.objects.all()
+    order_obj = Order.objects.get(order_id__iexact =order_id)
+    cart_obj = Cart.objects.get(id__iexact = cart_id)
+
+    if  request.method == "POST" :
+        #to do: do some check to see that the order is done
+        #update order object to being paid 
+        # href="{% url 'mpesa:lipa_na_mpesa' %}"
+        is_done = order_obj.check_done()
+        if is_done:
+            order_obj.mark_cash_on_delivery()
+            del request.session['cart_id'] 
+            return redirect("mpesa:cash_on_delivery_success")
+
+    context = {
+        "object": order_obj,
+        "cart_items" :  cart_items,
+        "cart_obj" : cart_obj,
+        "cart" : cart_obj,
+        "delivery_method" : "continue with cash on delivery",
+        "form_cash" : "cash"
+    }
+    return render(request, "cash.html", context)
+
+
+def cash_on_delivery_success(request):
+    delivery_time_id  = request.session.get('delivery_time' , None)
+    
+    order_id = request.session.get('object' ,  None)
+    cart_id = request.session.get('cart' , None)
+    cart_items = request.session.get('cart_items' , None)
+    allcategory = Category.objects.all()
+    order_obj = Order.objects.get(order_id__iexact =order_id)
+    cart_obj = Cart.objects.get(id__iexact = cart_id)
+    order_time = DeliveryTime.objects.get(id=delivery_time_id )
+    context = {
+        "object": order_obj,
+        "cart_items" :  cart_items,
+        "cart_obj" : cart_obj,
+        "cart" : cart_obj,
+        "delivery_method" : "Cash On Delivery",
+        'delivery_time_id' : order_time
+    }
+    
+    #orders
+    order_id_email = order_obj.order_id
+    total_amount = order_obj.total
+    order_arrival_date = order_time.date 
+    order_arrival_time = order_time.get_time_display()
+    subject = "Delivery for {}".format(order_id_email)
+    from_email = settings.EMAIL_HOST_USER
+    to_email = str(order_obj.delivery_address.email)
+    message = "Your order was placed successfully Oder Id : f'{order_id_email}' Order Email : f'{to_email}'  Payment Method : Cash On delivery , Payment Amount : f'{total_amount}' Order Arrival Date :  f'{order_arrival_date}' ( f'{order_arrival_time}' ) "
+    emailsent = EmailMultiAlternatives(subject=subject, body=message ,from_email=from_email ,  to = [to_email] )
+    html_template = get_template("success.html").render(context,request)
+    emailsent.attach_alternative(html_template, "text/html")
+    emailsent.send()
+
+
+    
+  
+    
+    return render(request, "success.html", context)
+

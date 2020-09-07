@@ -4,7 +4,7 @@
     <div class="top-header-group">
         <div class="top-header">
             <div class="res_main_logo">
-                <a href="/"><img src="{% static 'images\dark-logo-1.svg' %}" alt=""></a>
+                <!-- <a href="/"><img src="{% static 'images\dark-logo-1.svg' %}" alt=""></a> -->
             </div>
             <div class="main_logo" id="logo">
                 
@@ -21,9 +21,7 @@
                         <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>254-727-263054</a>
                     </li>
                   
-                    <li>
-                        <a href="faq.html" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
-                    </li>
+                   
                     {% if request.user.is_authenticated %}
                     
                     <li>
@@ -46,10 +44,9 @@
                                 </a>
                             </div>	
                             							
-                            <a href="dashboard_my_orders.html" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
+                        
                             <a href='{% url "carts:cart_home" %}' class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
                         
-                            <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
                             
                             <a href='{% url "accounts:logout" %}' class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
                         </div>
@@ -88,13 +85,13 @@
                                         <a href="about_us.html" class="item channel_item page__links">About Us</a>
                                         {% if request.user.is_authenticated %}
                                         <a href="{% url 'cart:checkout' %}" class="item channel_item page__links">Checkout</a>
-                                        <a href="order_placed.html" class="item channel_item page__links">Order Placed</a>
+                                      
                                         <a href="forgot_password.html" class="item channel_item page__links">Forgot Password</a>	
                                         {% else %}
                                         <a href="{% url 'accounts:signin' %}" class="item channel_item page__links">Sign In</a>
                                         <a href="{% url 'accounts:signup' %}" class="item channel_item page__links">Sign Up</a>
                                         {% endif %}
-                                        <a href="request_product.html" class="item channel_item page__links">Product Request</a>									
+                                      									
                                         <a href="contact_us.html" class="item channel_item page__links">Contact Us</a>
                                     </div>
                                 </div>

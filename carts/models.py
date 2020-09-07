@@ -3,6 +3,7 @@ from django.conf import settings
 from products.models import Products
 from django.db.models.signals import pre_save,m2m_changed
 User = settings.AUTH_USER_MODEL
+from decimal import Decimal
 # Create your models here.
 class CartManager(models.Manager):
   
@@ -40,31 +41,46 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    def price(self):
+        if self.products.product_discount_price:
+            return Decimal(self.products.product_discount_price)
+        else:
+            return Decimal(self.products.product_price)
 
 
-def m2m_save_receiver(sender,instance,action,*args,**kwargs):
-    if action == 'post_remove' or action == 'post_add' or action == 'post_clear':
-        products = instance.products.all()
-        total = 0
-        for x in products:
-            if x.product_discount_price:
-                total +=x.product_discount_price
-            else:
-                total +=x.product_price
-        if instance.subtotal != total:
-            instance.subtotal = total
-            instance.save()
+# def m2m_save_receiver(sender,instance,action,*args,**kwargs):
+#     if action == 'post_remove' or action == 'post_add' or action == 'post_clear':
+#         products = instance.products.all()
+#         total = 0
+#         for x in products:
+#             if x.product_discount_price:
+#                 total +=x.product_discount_price
+#             else:
+#                 total +=x.product_price
+#         if instance.subtotal != total:
+#             instance.subtotal = total
+#             instance.save()
         
-m2m_changed.connect(m2m_save_receiver,sender=Cart.products.through)
+# m2m_changed.connect(m2m_save_receiver,sender=Cart.products.through)
 
 
-def pre_save_cart_reciever(sender,instance,*args,**kwargs):
-    if instance.subtotal > 0:
-        instance.total = instance.subtotal 
-    else:
-        instance.total = 0.00
+# def pre_save_cart_reciever(sender,instance,*args,**kwargs):
+#     if instance.subtotal > 0:
+#         instance.total = instance.subtotal 
+#     else:
+#         instance.total = 0.00
 
 
-pre_save.connect(pre_save_cart_reciever,sender = Cart)
+# pre_save.connect(pre_save_cart_reciever,sender = Cart)
+
+class CartQuantity(models.Model):
+    cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
+    product = models.CharField(max_length=200)
+    quantity = models.IntegerField(null=True,blank=True,default=0)
+
+    # def __str__(self):
+    #     return self.cart
+   
     
     

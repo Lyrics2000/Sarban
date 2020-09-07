@@ -6,7 +6,9 @@ lipa_na_mpesa_online,
 register_urls,
 confirmation,
 validation,
-call_back
+call_back,
+cash_on_delivery,
+cash_on_delivery_success
 )
 
 app_name = 'mpesa'
@@ -21,6 +23,8 @@ urlpatterns = [
     path('c2b/confirmation', confirmation, name="confirmation"),
     path('c2b/validation', validation, name="validation"),
     path('c2b/callback', call_back, name="call_back"),
+    path('cash_on_delivery',cash_on_delivery, name="cash_on_delivery"),
+    path('cash_on_delivery/success',cash_on_delivery_success, name="cash_on_delivery_success"),
     
     
 ]

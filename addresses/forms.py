@@ -1,5 +1,6 @@
 from django import forms
-from .models import Address
+from .models import Address,DeliveryTime
+from django.contrib.admin.widgets import AdminDateWidget
 
 class AddressForm(forms.ModelForm):
     class Meta:
@@ -42,5 +43,19 @@ class AddressForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class DeliveryTimeAddress(forms.ModelForm):
+    class Meta:
+        model = DeliveryTime
+        fields = ['date' , 'time']
+        widgets  = {
+             'date' : AdminDateWidget()
+             
+                
+         }
+
+
+
 
        

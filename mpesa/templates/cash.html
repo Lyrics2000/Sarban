@@ -126,13 +126,13 @@
 							</div>
 						</div>
 						<div class="bill-dt-step">
-							<form method="POST" action="{% url 'mpesa:register_mpesa_validation' %}">
+							<form method="POST">
 							<div class="bill-bottom">
 								<div class="thnk-ordr">Thanks for Ordering</div>
 								
 								
 									{% csrf_token %}
-									
+								
 								<button class="print-btn hover-btn" type="submit" >{{delivery_method}}</button>
 							</form>
 							</div>

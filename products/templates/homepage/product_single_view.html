@@ -21,7 +21,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                         
-                            <li class="breadcrumb-item active" aria-current="page">{{object.</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{object.product_title}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -39,30 +39,9 @@
                                     <div class="item">
                                         <img height="350" width="350" src="{{object.product_Image_Field.url}}" alt="">
                                     </div>
-                                    <!-- <div class="item">
-                                        <img src="{% static ' images\product\big-2.jpg' %}" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-3.jpg' %}" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-4.jpg' %}" alt="">
-                                    </div> -->
+                                   
                                 </div>
-                                <!-- <div id="sync2" class="owl-carousel owl-theme">
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-2.jpg' %}" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-3.jpg' %}" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="{% static 'images\product\big-4.jpg' %}" alt="">
-                                    </div> 
-                                </div> -->
+                                
                             </div>
                             <div class="col-lg-8 col-md-8">
                                 <div class="product-dt-right">
@@ -91,6 +70,7 @@
                                     <p class="pp-descp">{{object.product_overview}}</p>
                                     <div class="product-group-dt">
                                         <ul>
+                                         
                                             {% if object.product_discount_price %}
                                             <li><div class="main-price color-discount">Discount Price<span>Ksh(per kg) : {{object.product_discount_price}}</span></div></li>
                                             <li><div class="main-price mrp-price">MRP Price<span>Ksh(per kg) : {{object.product_price}}</span></div></li>
@@ -101,21 +81,24 @@
                                         </ul>
                                        
                                         <ul class="ordr-crt-share">
-                                            <li> <form method ='POST' action = '{% url "carts:cart_update" %}' class="form">
+                                            <form method ='POST' action = '{% url "carts:cart_update" %}' class="form">
                                                 {% csrf_token %}
+                                               <li>
+                                                <div class="qty-product">
+                                                    <div class="quantity buttons_added">
+                                                        
+                                                        <input type="number" step="1" name="quantity"class="input-text qty text" placeholder="Kgs">
+                                                      
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li> 
                                                 <input type="hidden" name="product_id" value="{{object.id}}" />
                                             <button type="submit" class="add-cart-btn hover-btn"><i class="uil uil-shopping-cart-alt"></i>Add to Cart</button>
                                          
-                                            </form>
+                                           
                                         </li>
-                                        <li>
-                                        <form method ='POST' action = '{% url "carts:cart_remove_product" %}' class="form">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{object.id}}" />
-                                        
-                                        <button type="submit" class="order-btn hover-btn">Remove from Cart</button>
-                                       </form>
-                                       </li> 
+                                    </form>
                                         </ul>
                                     </div>
                                     <div class="pdp-details">

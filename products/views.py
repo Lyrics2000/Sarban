@@ -4,6 +4,7 @@ from django.views.generic import DetailView,View,ListView
 from carts.models import Cart
 
 
+
 class Index(View):
     def get(self,request,*args,**kwargs):
         allproducts = Products.objects.all()
@@ -38,6 +39,7 @@ class ItemDetailView(DetailView):
         context['categories'] = allcategory
         context['cart_items'] = cart_items
         
+        
         return context
 
 class ItemDetailViewCategory(DetailView):
@@ -54,6 +56,7 @@ class ItemDetailViewCategory(DetailView):
         context['categories'] = allcategory
         context['cart_items'] = cart_items
         
+         
         return context
     
 

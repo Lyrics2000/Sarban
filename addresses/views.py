@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from.forms import AddressForm
+from.forms import AddressForm,DeliveryTimeAddress
 from billing.models import BillingProfile
 from django.utils.http import is_safe_url
+from .models import Address
 
 
 # Create your views here.
@@ -32,5 +33,21 @@ def checkout_address_create_view(request):
         else:
             return redirect("cart:checkout")
     return redirect("carts:checkout")
+
+
+def deliver_time(request):
+    form = DeliveryTimeAddress(request.POST or None)
+    if form.is_valid:
+        instance = form.save(commit=False)
+        address_id = request.session.get("delivery_address_id")
+        all_address_with_specific_id = Address.objects.get(id = address_id)
+        instance.address = all_address_with_specific_id
+        instance.save()
+        request.session["delivery_time"] = instance.id
+        return redirect("cart:checkout")
+    return redirect("carts:checkout")
+
+
+
 
 

@@ -35,7 +35,7 @@
                         <h4>Categories</h4>
                         <ul>
                             {% for c in categories %}
-                            <li><a href="#">{{c.category_name}}</a></li>
+                            <li><a href="{{c.get_absolute_url}}">{{c.category_name}}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -72,30 +72,15 @@
                         <div class="footer-payments">
                             <ul id="paypal-gateway" class="financial-institutes">
                                 <li class="financial-institutes__logo">
-                                  <img alt="Visa" title="Visa" src="{% static 'images\footer-icons\pyicon-6.svg' %}">
+                                  <img alt="Mpesa" title="Mpesa" src="{% static 'images\footer-icons\mpesa_image.jpeg' %}">
                                 </li>
-                                <li class="financial-institutes__logo">
-                                  <img alt="Visa" title="Visa" src="{% static 'images\footer-icons\pyicon-1.svg' %}">
-                                </li>
-                                <li class="financial-institutes__logo">
-                                  <img alt="MasterCard" title="MasterCard" src="{% static 'images\footer-icons\pyicon-2.svg' %}">
-                                </li>
-                                <li class="financial-institutes__logo">
-                                  <img alt="American Express" title="American Express" src="{% static 'images\footer-icons\pyicon-3.svg' %}">
-                                </li>
-                                <li class="financial-institutes__logo">
-                                  <img alt="Discover" title="Discover" src="{% static 'images\footer-icons\pyicon-4.svg' %}">
-                                </li>
+                             
+                               
+                            
                             </ul>
                         </div>
                     </div>
-                    <div class="second-row-item-payment">
-                        <h4>Newsletter</h4>
-                        <div class="newsletter-input">
-                            <input id="email" name="email" type="text" placeholder="Email Address" class="form-control input-md" required="">
-                            <button class="newsletter-btn hover-btn" type="submit"><i class="uil uil-telegram-alt"></i></button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
