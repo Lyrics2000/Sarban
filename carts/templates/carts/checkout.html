@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Offers</li>
                         </ol>
                     </nav>
@@ -39,39 +39,22 @@
                         </div>
                     </div>
                 </div>
+                
+                {% if allbanners %}
+                {% for b in allbanners %}
                 <div class="col-lg-4">
                     <a href="#" class="offers-item">
                         <div class="offer-img">
-                            <img src="{% static 'images\offers\img-1.jpg' %}" alt="">
+                            <img height="250" width="250" src="{{b.product_Image_Field.url}}" alt="">
                         </div>
-                        <div class="offers-text">
-                            <h4>📢  Offer Title Here!</h4>
-                            <p>Up to 25% off on Vegetables & Fruits & much more</p>
-                        </div>
+                       
                     </a>
                 </div>
-                <div class="col-lg-4">
-                    <a href="#" class="offers-item">
-                        <div class="offer-img">
-                            <img src="{% static 'images\offers\img-2.jpg' %}" alt="">
-                        </div>
-                        <div class="offers-text">
-                            <h4>📢  Offer Title Here!</h4>
-                            <p>Up to 25% off on Grocery & Staples & much more</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4">
-                    <a href="#" class="offers-item">
-                        <div class="offer-img">
-                            <img src="{% static 'images\offers\img-3.jpg' %}" alt="">
-                        </div>
-                        <div class="offers-text">
-                            <h4>📢  Offer Title Here!</h4>
-                            <p>Up to 75% off on Personal Care & much more</p>
-                        </div>
-                    </a>
-                </div>
+                {% endfor %}
+
+                {% endif %}
+
+
             </div>
         </div>
     </div>  
@@ -305,7 +288,12 @@
                         </div>
                         <div class="right-cart-dt-body">
                             {% if cart.products %}
+                            
                             {% for p in cart.products.all %}
+                           
+                            
+                            
+
                             <div class="cart-item border_radius">
                                 <div class="cart-product-img">
                     
@@ -316,13 +304,14 @@
                                 </div>
                                 <div class="cart-text">
                                     <h4>{{p.product_title }}</h4>
+                                    <h4>kgs</h4>
                                     {% if p.product_discount_price %}
                                     <div class="cart-item-price">Ksh(per kg):{{p.product_discount_price}}<span>Ksh(per kg):{{p.product_price}}</span></div>
                                     {% else %}
                                     <div class="cart-item-price">Ksh(per kg):{{p.product_price}}</div>
                                     {% endif %}
 
-                                    <form method ='POST' action = '{% url "carts:cart_remove_checkout" %}' class="form">
+                                    <form method ='POST' action = '{% url "carts:cart_update" %}' class="form">
                                         {% csrf_token %}
                                         <input type="hidden" name="product_id" value="{{p.id}}"/>
                                     
@@ -331,7 +320,11 @@
                                     
                                 </div>      
                             </div>
+                            
+                        
+                           
                             {% endfor %}
+                           
                             {% endif %}
                         </div>
                         <div class="total-checkout-group">

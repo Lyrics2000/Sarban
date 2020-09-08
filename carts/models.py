@@ -79,8 +79,8 @@ class CartQuantity(models.Model):
     product = models.CharField(max_length=200)
     quantity = models.IntegerField(null=True,blank=True,default=0)
 
-    # def __str__(self):
-    #     return self.cart
+    def __str__(self):
+        return str(self.cart)
    
     
     

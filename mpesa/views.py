@@ -3,7 +3,7 @@ from carts.models import Cart
 from billing.models import BillingProfile
 from addresses.models import Address,DeliveryTime
 from orders.models import Order
-from products.models import Category
+from products.models import Category,Banners
 
 #Email imports
 from django.core.mail import send_mail,EmailMultiAlternatives
@@ -25,6 +25,7 @@ def Index(request):
     cart_id = request.session.get('cart' , None)
     cart_items = request.session.get('cart_items' , None)
     allcategory = Category.objects.all()
+    
     order_obj = Order.objects.get(order_id__iexact =order_id)
     cart_obj = Cart.objects.get(id__iexact = cart_id)
     context = {

@@ -5,7 +5,7 @@ from accounts.models import GuestEmail
 from addresses.forms import AddressForm,DeliveryTimeAddress
 from addresses.models import Address,DeliveryTime
 from orders.models import Order
-from products.models import Products,Category
+from products.models import Products,Category,Banners
 from .models import Cart,CartQuantity
 from orders.models import Order
 from decimal import Decimal
@@ -37,17 +37,23 @@ def cart_update(request):
         product_obj = Products.objects.get(id=product_id)
         print("Product object is " , product_obj)
         cart_obj,new_obj = Cart.objects.new_or_get(request)
+        
         if product_obj in cart_obj.products.all():
-            print("everything s ok")
+            print("The cart object is" ,  cart_obj)
+            cart_obj.products.remove(product_obj)
+            instance = CartQuantity.objects.filter(product=str(product_obj))
+            instance.delete()
         else:
             cart_obj.products.add(product_obj)
-           
-            if cart_obj:
+            cart_quantity = CartQuantity.objects.create(cart=cart_obj)
+            cart_quantity.product = str(product_obj)
+            if quantity:
+                cart_quantity.quantity = quantity
+                cart_quantity.save()
+            else:
+                cart_quantity.quantity = 1
+                cart_quantity.save()
                     
-                    cart_quantity = CartQuantity.objects.create(cart=cart_obj)
-                    cart_quantity.product = str(product_obj)
-                    cart_quantity.quantity = quantity
-                    cart_quantity.save()
         
         all_products = CartQuantity.objects.all()
         cart_total = 0
@@ -64,16 +70,12 @@ def cart_update(request):
                         msv = mvbb.product_price * x.quantity
                         product_toatal += msv
 
-        print("The total price is " , product_toatal)
+    
         cart_id = request.session.get("cart_id")
         mnupdat  = Cart.objects.get(id = cart_id)
         mnupdat.subtotal = product_toatal
         mnupdat.total = product_toatal
-        mnupdat.save()
-        
-
-                
-            
+        mnupdat.save()    
         request.session['cart_items'] = cart_obj.products.count()
 
     return redirect("carts:checkout")
@@ -86,6 +88,7 @@ def cart_remove(request):
         if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
             del  request.session['cart_id']
+            
         
         request.session['cart_items'] = cart_obj.products.count()
 
@@ -128,7 +131,6 @@ def checkout_home(request):
     delivery_form  = DeliveryTimeAddress()
     shipping_address_id = request.session.get("delivery_address_id" , None)
     delivery_time_id  = request.session.get('delivery_time' , None)
-    print("shipping_address_id" , shipping_address_id)
     billing_profile, billing_profile_created  = BillingProfile.objects.new_or_get(request)
     address_qs = None
     if billing_profile is not None:
@@ -142,26 +144,17 @@ def checkout_home(request):
 
 
     
-            #del request.session["delivery_address_id"]
+           
         
 
         if  shipping_address_id:
             order_obj.save()
-            #print("the shipping staff is " , Order.objects.shipping__totals())
-
-    # if request.method == "POST":
-    #     #to do: do some check to see that the order is done
-    #     #update order object to being paid 
-        
-    #     is_done = order_obj.check_done()
-    #     if is_done:
-    #         order_obj.mark_paid()
-    #         del request.session['cart_id'] 
-    #         return redirect("/cart/success")
+           
     cart_items  = cart_obj.products.count()
     allcategory = Category.objects.all()
-    print(order_obj)
-    print(cart_obj)
+    allbanners = Banners.objects.all()
+    cartqty = CartQuantity.objects.all()
+   
     
     request.session['object'] = str(order_obj)
     request.session['cart'] = str(cart_obj)
@@ -177,6 +170,8 @@ def checkout_home(request):
         "cart_obj" : cart_obj,
         "cart" : cart_obj,
         'categories' : allcategory,
-        'delivery_form' : delivery_form
+        'delivery_form' : delivery_form,
+        'allbanners'    : allbanners,
+        'cartqty'    : cartqty
     }
     return render(request, "carts/checkout.html", context)

@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from .models import Category,Products
+from .models import Category,Products,Banners
 from django.views.generic import DetailView,View,ListView
 from carts.models import Cart
 
@@ -11,14 +11,19 @@ class Index(View):
         allcategory = Category.objects.all()
         cart_obj,new_obj = Cart.objects.new_or_get(self.request)
         cart_items  = cart_obj.products.count()
+        allbanners = Banners.objects.all()
         context = {
             'categories' : allcategory,
             'products' : allproducts,
             'cart' : cart_obj,
             'cart_items' :  cart_items,
+            'allbanners' : allbanners
         }
     
         return render(request,'homepage/index.html',context)
+
+
+
 
 
 
