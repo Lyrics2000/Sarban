@@ -9,6 +9,12 @@ from products.models import Products,Category,Banners
 from .models import Cart,CartQuantity
 from orders.models import Order
 from decimal import Decimal
+from addresses.utils import API_KEY,gmap_key,distancePriceCalculator,newport_ri
+from geopy.geocoders import Nominatim
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+import math
+
 
 
 # Create your views here.
@@ -138,6 +144,27 @@ def checkout_home(request):
         order_obj,order_obj_created = Order.objects.new_or_get(billing_profile,cart_obj)
         if shipping_address_id:
             order_obj.delivery_address = Address.objects.get(id=shipping_address_id)
+            #calculating shipping address
+            shipping_addresses = Address.objects.get(id=shipping_address_id)
+            print(shipping_addresses.address_line1)
+            geolocator = Nominatim(user_agent="carts")
+            location = gmap_key.geocode(shipping_addresses.address_line1)
+            lat = location[0]["geometry"]["location"]["lat"]
+            lon = location[0]["geometry"]["location"]["lng"]
+            print("location" ,  location)
+            #customer location
+            cleveland_oh = (lat, lon)
+            
+            #calculate the distace price
+            distancec  = geodesic(newport_ri, cleveland_oh).km
+            price = distancePriceCalculator(distance=distancec)
+            #set shipping price to delivery price calculated
+            order_obj.shipping_total = price
+            new_total = math.fsum([cart_obj.total, price])
+            formatted_total = format(new_total,'2')
+            order_obj.total = new_total
+
+
             if delivery_time_id:
                 order_obj.delivery_time = DeliveryTime.objects.get(id=delivery_time_id)
 
@@ -154,6 +181,7 @@ def checkout_home(request):
     allcategory = Category.objects.all()
     allbanners = Banners.objects.all()
     cartqty = CartQuantity.objects.all()
+    google_api = API_KEY
    
     
     request.session['object'] = str(order_obj)
@@ -172,6 +200,7 @@ def checkout_home(request):
         'categories' : allcategory,
         'delivery_form' : delivery_form,
         'allbanners'    : allbanners,
-        'cartqty'    : cartqty
+        'cartqty'    : cartqty,
+        'google_api' : google_api
     }
     return render(request, "carts/checkout.html", context)

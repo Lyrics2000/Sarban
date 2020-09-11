@@ -15,7 +15,7 @@ class Address(models.Model):
     name = models.CharField(max_length=120)
     email = models.CharField(max_length=120)
     phone = models.CharField(max_length=120)
-    postal_code = models.CharField(max_length=120)
+
 
     def __str__(self):
         return str(self.billing_profile)
