@@ -44,11 +44,14 @@ class AddressForm(forms.ModelForm):
 class DeliveryTimeAddress(forms.ModelForm):
     class Meta:
         model = DeliveryTime
-        fields = ['date' , 'time']
+        fields = ['date' ]
         widgets  = {
-             'date' : AdminDateWidget()
-             
-                
+             'date' : forms.DateInput(
+                 attrs={
+                     "type":"datetime-local", "id":"birthdaytime" ,"name":"birthdaytime","class":"form-control"
+                 }
+             )
+    
          }
 
 

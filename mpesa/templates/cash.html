@@ -81,7 +81,7 @@
 							</div>
 							<div class="bill-descp">
 								<div class="itm-ttl"></div>
-								<p class="bill-address">{{object.delivery_address.name}},{{object.delivery_address.phone}},{{object.delivery_address.billing_profile}}</p>
+								<p class="bill-address">{{object.delivery_address.name}},{{object.delivery_address.phone}},{{object.delivery_address.email}}</p>
 							</div>
 						</div>
 						<div class="bill-dt-step">
@@ -92,7 +92,7 @@
 								
 								<p class="bill-dt-sl">Order ID - <span class="descp-bll-dt">{{object.order_id}}</span></p>
 								<p class="bill-dt-sl">Items - <span class="descp-bll-dt">{{cart_items}}</span></p>
-								<p class="bill-dt-sl">Timing - <span class="descp-bll-dt">26 May 2020 , Tuesday, 3.00PM - 5.00PM</span></p>
+								<p class="bill-dt-sl">Timing - <span class="descp-bll-dt">{{delivery_time.date}}</span></p>
 							</div>
 						</div>
 						<div class="bill-dt-step">

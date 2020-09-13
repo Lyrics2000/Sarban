@@ -21,23 +21,14 @@ class Address(models.Model):
         return str(self.billing_profile)
 
 
-DELIVER_ADDRESS_TIME = (
-    
-    ('a', '8:00 AM - 10:00 AM'),
-     ('b', '10:00 AM - 12:00 PM'),
-      ('c', '12:00 PM - 2:00 PM'),
-       ('d', '2:00 PM - 4:00 PM'),
-        ('e', '4:00 PM - 6:00 PM'),
-   
-)
+
 class DeliveryTime(models.Model):
     address = models.ForeignKey(Address,on_delete=models.CASCADE)
-    date = models.DateField(blank=True,null=True)
-    time = models.CharField(max_length=150,choices=DELIVER_ADDRESS_TIME,null=True,blank=True)
+    date = models.DateTimeField(blank=True,null=True)
+    
 
     def __str__(self):
-        return str(self.address)
+        return str(self.date)
     
-    def gettime(self):
-        return str(self.time)
+    
 

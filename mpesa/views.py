@@ -124,9 +124,13 @@ def cash_on_delivery(request):
     order_id = request.session.get('object' ,  None)
     cart_id = request.session.get('cart' , None)
     cart_items = request.session.get('cart_items' , None)
+    address_id = request.session.get("delivery_address_id")
+    all_address_with_specific_id = Address.objects.get(id = address_id)
     allcategory = Category.objects.all()
     order_obj = Order.objects.get(order_id__iexact =order_id)
     cart_obj = Cart.objects.get(id__iexact = cart_id)
+    delivery_time_id  = request.session.get('delivery_time' , None)
+    order_time = DeliveryTime.objects.get(id=delivery_time_id )
 
     if  request.method == "POST" :
         #to do: do some check to see that the order is done
@@ -144,7 +148,9 @@ def cash_on_delivery(request):
         "cart_obj" : cart_obj,
         "cart" : cart_obj,
         "delivery_method" : "continue with cash on delivery",
-        "form_cash" : "cash"
+        "form_cash" : "cash",
+        "delivery_time" : order_time
+
     }
     return render(request, "cash.html", context)
 
@@ -172,11 +178,11 @@ def cash_on_delivery_success(request):
     order_id_email = order_obj.order_id
     total_amount = order_obj.total
     order_arrival_date = order_time.date 
-    order_arrival_time = order_time.get_time_display()
+    
     subject = "Delivery for {}".format(order_id_email)
     from_email = settings.EMAIL_HOST_USER
     to_email = str(order_obj.delivery_address.email)
-    message = "Your order was placed successfully Oder Id : f'{order_id_email}' Order Email : f'{to_email}'  Payment Method : Cash On delivery , Payment Amount : f'{total_amount}' Order Arrival Date :  f'{order_arrival_date}' ( f'{order_arrival_time}' ) "
+    message = "Your order was placed successfully Oder Id : f'{order_id_email}' Order Email : f'{to_email}'  Payment Method : Cash On delivery , Payment Amount : f'{total_amount}' Order Arrival Date :  f'{order_arrival_date}'  "
     emailsent = EmailMultiAlternatives(subject=subject, body=message ,from_email=from_email ,  to = [to_email] )
     html_template = get_template("success.html").render(context,request)
     emailsent.attach_alternative(html_template, "text/html")
