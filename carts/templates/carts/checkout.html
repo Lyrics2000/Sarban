@@ -38,6 +38,16 @@
                             <a href='{% url "accounts:signup" %}' class="btn btn-secondary btn-lg">Sign Up</a>
                         </div>
                     </div>
+
+                    <div class="default-title mt-4">
+                        <div class="model-footer">
+                                <form method = "POST" action = "{% url "accounts:guest_register" %}">
+                                {% csrf_token %}
+                                {% comment %} {{guest_form.as_p}} {% endcomment %}
+                                <button class="btn btn-danger btn-lg">Continue Withought Sign In</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 
                 {% if allbanners %}
@@ -132,6 +142,12 @@
                                                             </div>
                                                             <div class="col-lg-6 col-md-12">
                                                                 <div class="form-group">
+                                                                    <label class="control-label">Location Detailed Description(optional)</label>
+                                                                    {{address_form.estate_decsription}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12">
+                                                                <div class="form-group">
                                                                     <label class="control-label">Phone Number*</label>
                                                                     {{address_form.phone}}
                                                                 </div>
@@ -187,12 +203,7 @@
                                                                 
                                                                 
                                                             </div>
-                                                            <!-- <div class="col-lg-6 col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Pick Up Time*</label>
-                                                                    {{delivery_form.time}}
-                                                                </div> 
-                                                            </div>-->
+                                                            
                                                             
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
@@ -251,7 +262,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="pymnt_title">
                                                                 <h4>Cash on Delivery</h4>
-                                                                <p>Cash on Delivery will not be available if your order value exceeds $10.</p>
+                                                                {% comment %} <p>Cash on Delivery will not be available if your order value exceeds $10.</p> {% endcomment %}
                                                                 <a href="{% url 'mpesa:cash_on_delivery' %}" class="next-btn16 hover-btn">Place Order</a>
                                                             </div>
                                                         </div>                                                      
@@ -262,7 +273,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="pymnt_title">
                                                                 <h4>Mpesa Payments</h4>
-                                                                <p>Cash on Delivery will not be available if your order value exceeds $10.</p>
+                                                                {% comment %} <p>Cash on Delivery will not be available if your order value exceeds $10.</p> {% endcomment %}
                                                                 <a href="{% url 'mpesa:mpesaindex' %}" class="next-btn16 hover-btn">Place Order</a>
                                                             </div>
                                                         </div>                                                      
@@ -328,21 +339,15 @@
                                 <h4>Order Total</h4>
                                 <span>Ksh : {{object.cart.total }}</span>
                             </div>
-                            <div class="cart-total-dil pt-3">
-                                <h4>Delivery Charges</h4>
-                                <span>Ksh : {{object.shipping_total }}</span>
-                            </div>
+                            
                         </div>
                         
-                        <div class="main-total-cart">
-                            <h2>Total</h2>
-                            <span>Ksh : {{object.total }}</span>
-                        </div>
+            
                         <div class="payment-secure">
                             <i class="uil uil-padlock"></i>Secure checkout
                         </div>
                     </div>
-                    <a href="#" class="promo-link45">Have a promocode?</a>
+                    
                     <div class="checkout-safety-alerts">
                         <p><i class="uil uil-sync"></i>100% Replacement Guarantee</p>
                         <p><i class="uil uil-check-square"></i>100% Genuine Products</p>

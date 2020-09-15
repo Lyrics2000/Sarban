@@ -10,11 +10,12 @@ class Address(models.Model):
     billing_profile = models.ForeignKey(BillingProfile,on_delete=models.CASCADE)
     addresstype = models.CharField(max_length=120,choices=ADDRESS_TYPES)
     address_line1 = models.CharField(max_length=120)
-    address_line2 = models.CharField(max_length=120, default = "Kangemi")
+    address_line2 = models.CharField(max_length=120, blank=True)
     city = models.CharField(max_length=120)
     name = models.CharField(max_length=120)
     email = models.CharField(max_length=120)
     phone = models.CharField(max_length=120)
+    estate_decsription = models.CharField(max_length=120,blank=True,null=True)
 
 
     def __str__(self):

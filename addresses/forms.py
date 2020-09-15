@@ -5,11 +5,16 @@ from django.contrib.admin.widgets import AdminDateWidget
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['address_line1','address_line2','city','name','email','phone']
+        fields = ['address_line1','address_line2','city','name','email','phone','estate_decsription']
         widgets = {
             'name':forms.TextInput(
                 attrs = {
                      " type":"text", "placeholder":"Name", "class":"form-control input-md", "required":""
+                }
+            ),
+            'estate_decsription':forms.TextInput(
+                attrs = {
+                     " type":"text", "placeholder":"Description", "class":"form-control input-md", "required":""
                 }
             ),
             'email':forms.TextInput(
@@ -24,7 +29,7 @@ class AddressForm(forms.ModelForm):
             ),
              'address_line2':forms.TextInput(
                 attrs = {
-                     " type":"text", "placeholder":"Street Address", "class":"form-control input-md", "required":""
+                     " type":"text", "placeholder":"eg. Waruku House", "class":"form-control input-md", "required":""
                 }
             ),
              'city':forms.TextInput(

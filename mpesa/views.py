@@ -4,6 +4,7 @@ from billing.models import BillingProfile
 from addresses.models import Address,DeliveryTime
 from orders.models import Order
 from products.models import Category,Banners
+from .forms import CashAtHand
 
 #Email imports
 from django.core.mail import send_mail,EmailMultiAlternatives
@@ -131,16 +132,32 @@ def cash_on_delivery(request):
     cart_obj = Cart.objects.get(id__iexact = cart_id)
     delivery_time_id  = request.session.get('delivery_time' , None)
     order_time = DeliveryTime.objects.get(id=delivery_time_id )
+    cash_at_hand = CashAtHand()
 
     if  request.method == "POST" :
-        #to do: do some check to see that the order is done
-        #update order object to being paid 
-        # href="{% url 'mpesa:lipa_na_mpesa' %}"
-        is_done = order_obj.check_done()
-        if is_done:
-            order_obj.mark_cash_on_delivery()
-            del request.session['cart_id'] 
-            return redirect("mpesa:cash_on_delivery_success")
+        if cash_at_hand.is_valid:
+            cash_at_ = request.POST.get("cash_at_hand")
+            order_obj.cash_at_hand = cash_at_ 
+            expected_change_order = float(cash_at_) - float(order_obj.total)
+            order_obj.change_expected = expected_change_order
+            #to do: do some check to see that the order is done
+            #update order object to being paid 
+            # href="{% url 'mpesa:lipa_na_mpesa' %}"
+            is_done = order_obj.check_done()
+            if is_done:
+                order_obj.mark_cash_on_delivery()
+                del request.session['cart_id'] 
+                return redirect("mpesa:cash_on_delivery_success")
+        else:
+            #to do: do some check to see that the order is done
+            #update order object to being paid 
+            # href="{% url 'mpesa:lipa_na_mpesa' %}"
+            is_done = order_obj.check_done()
+            if is_done:
+                order_obj.mark_cash_on_delivery()
+                del request.session['cart_id'] 
+                return redirect("mpesa:cash_on_delivery_success")
+            
 
     context = {
         "object": order_obj,
@@ -149,7 +166,8 @@ def cash_on_delivery(request):
         "cart" : cart_obj,
         "delivery_method" : "continue with cash on delivery",
         "form_cash" : "cash",
-        "delivery_time" : order_time
+        "delivery_time" : order_time,
+        "cash_at_hand"  : cash_at_hand
 
     }
     return render(request, "cash.html", context)

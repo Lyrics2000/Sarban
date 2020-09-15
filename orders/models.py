@@ -43,6 +43,8 @@ class Order(models.Model):
     shipping_total = models.DecimalField(default=00.00,max_digits=100,decimal_places=2)
     total = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
     active = models.BooleanField(default=True)
+    cash_at_hand = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
+    change_expected = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
 
     def __str__(self):
         return self.order_id

@@ -5,6 +5,7 @@ from .forms import LogiForm,RegisterForm,GuestForm
 from django.utils.http import is_safe_url
 from .models import GuestEmail
 from django.contrib.auth.models import User
+from .utils import id_generator
 
 # Create your views here.
 
@@ -17,13 +18,14 @@ def guest_register_view(request):
     next_post = request.GET.get('next')
     redirect_path = next or next_post or None
     if login_form.is_valid:
-        email = request.POST.get("email")
+        generated_mail = "guest" + id_generator(5,"ABCDEFGHIJKLMNOPQRSTUVXYZ123456789﹠∧⅋＆et🙰🙱,🙲🙳🙴🙵") + "@gmail.com"
+        email = generated_mail.lower()
         new_guest_email = GuestEmail.objects.create(email = email)
         request.session['guest_email_id'] = new_guest_email.id
         if is_safe_url(redirect_path,request.get_host()):
             return redirect(redirect_path)
         else:
-            return redirect("/account/signup/")
+            return redirect("carts:checkout")
         
     
     return redirect("/account/signup/")

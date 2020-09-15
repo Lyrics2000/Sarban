@@ -125,8 +125,25 @@
 								<p class="bill-dt-sl"><span class="dlr-ttl25 mr-1"><i class="uil uil-check-circle"></i></span>Cash on Delivery</p>
 							</div>
 						</div>
+						<form method="POST">
 						<div class="bill-dt-step">
-							<form method="POST">
+							<div class="bill-title">
+								<h4>Enter Cash At Hand*</h4>
+							</div>
+							<div class="bill-descp">
+								{{cash_at_hand.cash_at_hand}}
+							</div>
+						</div>
+						<div class="bill-dt-step">
+							
+							{% comment %} <div class="bill-title">
+								<h4>Enter Cash At Hand*</h4>
+							</div>
+							<div class="bill-descp">
+								{{cash_at_hand.cash_at_hand}}
+							</div> {% endcomment %}
+							
+
 							<div class="bill-bottom">
 								<div class="thnk-ordr">Thanks for Ordering</div>
 								
