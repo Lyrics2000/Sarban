@@ -1026,8 +1026,8 @@ i.icon1 {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .cart__btn ins {
@@ -1087,8 +1087,8 @@ i.icon1 {
 /* --- Category Model --- */
 
 .main-gambo-model {
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .category-area-inner .modal-header {
@@ -1641,8 +1641,8 @@ i.icon1 {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .quantity input::-webkit-outer-spin-button,
@@ -2632,8 +2632,8 @@ img.download-btn {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .product-sort {
@@ -2961,8 +2961,8 @@ span.save-icon {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .facebook {
@@ -3799,8 +3799,8 @@ label.control-label {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .user-dt h4 {
@@ -3902,8 +3902,8 @@ label.control-label {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
     ;
     pointer-events: none;
 }
@@ -4804,8 +4804,8 @@ table {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
     border-color: inherit !important;
     border-top: 0 !important;
     border-bottom: 0 !important;
@@ -5804,8 +5804,8 @@ textarea {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 
@@ -6344,8 +6344,8 @@ textarea {
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .signup-link p {

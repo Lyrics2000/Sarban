@@ -169,7 +169,7 @@ Night Mood
 }
 
 .night-mode .vbm_btn:hover {
-    background: #cc2622;
+    background: #004d00;
     color: #fff !important;
 }
 
@@ -312,8 +312,8 @@ Night Mood
 .night-mode .hover-btn:hover {
     background: #007500;
     color: #fff !important;
-    background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+    background-image: -webkit-linear-gradient(left, rgba(9, 155, 57, 0.9), #007500);
+    background-image: linear-gradient(to right, rgba(9, 155, 57, 0.9), #007500);
 }
 
 .night-mode .mt1-5 {
