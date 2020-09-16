@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <ul class="call-email-alt">
-                        <li><a href="#" class="callemail"><i class="uil uil-dialpad-alt"></i>254-727-263054</a></li>
+                        <li><a href="#" class="callemail"><i class="uil uil-dialpad-alt"></i>254-700-057005</a></li>
                         <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>info@twalafishstore.com</a></li>
                     </ul>
                 </div>
@@ -46,13 +46,18 @@
                     <div class="second-row-item">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><a href="about_us.html">About US</a></li>
-                            <li><a href="shop_grid.html">Featured Products</a></li>
-                            <li><a href="offers.html">Offers</a></li>
-                            <li><a href="our_blog.html">Blog</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="career.html">Careers</a></li>
-                            <li><a href="contact_us.html">Contact Us</a></li>
+                            <li><a href="about_us.html">About</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'cart:checkout' %}">Checkout</a></li>
+                            <li><a href="{% url "accounts:logout" %}">Log Out</a></li>
+                            {% else %}
+                            <li><a href="{% url 'accounts:signin' %}">Sign In</a></li>
+                            
+                            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+
+                            {% endif %}
+
+                            <li><a href="{% url 'contacts:contacts_index' %}">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,17 +97,28 @@
                     <div class="footer-bottom-links">
                         <ul>
                             <li><a href="about_us.html">About</a></li>
-                            <li><a href="contact_us.html">Contact</a></li>
-                            <li><a href="privacy_policy.html">Privacy Policy</a></li>
-                            <li><a href="term_and_conditions.html">Term & Conditions</a></li>
-                            <li><a href="refund_and_return_policy.html">Refund & Return Policy</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'cart:checkout' %}">Checkout</a></li>
+                            <li><a href="{% url "accounts:logout" %}">Log Out</a></li>
+                            {% else %}
+                            <li><a href="{% url 'accounts:signin' %}">Sign In</a></li>
+                            
+                            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+
+                            {% endif %}
+
+                            <li><a href="{% url 'contacts:contacts_index' %}">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="copyright-text">
                         <i class="uil uil-copyright"></i>Copyright 2020 <b>Gambolthemes</b> . All rights reserved
                     </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
 </footer>
+

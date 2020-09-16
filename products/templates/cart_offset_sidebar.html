@@ -33,7 +33,13 @@
                         {% endif %}
                     </div>
                     
-                    <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+                <form method ='POST' action = '{% url "carts:cart_update" %}' class="form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{p.id}}"/>
+                
+                    <button type="submit" class="cart-close-btn"><i class="uil uil-trash-alt"></i></button>
+                </form>
+                
                 </div>
             </div>
             {% endfor %}
